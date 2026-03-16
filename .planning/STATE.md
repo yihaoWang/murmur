@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-audio-capture-and-transcription-00-PLAN.md
-last_updated: "2026-03-16T14:52:32.116Z"
-last_activity: 2026-03-16 — Completed plan 01-01
+stopped_at: Completed 02-audio-capture-and-transcription-01-PLAN.md
+last_updated: "2026-03-16T14:55:00.000Z"
+last_activity: 2026-03-16 — Completed plan 02-01
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 8
-  completed_plans: 5
+  completed_plans: 7
   percent: 33
 ---
 
@@ -55,6 +55,7 @@ Progress: [███░░░░░░░] 33%
 | Phase 01-foundation P02 | 10 | 2 tasks | 5 files |
 | Phase 01-foundation P04 | 15 | 2 tasks | 5 files |
 | Phase 02-audio-capture-and-transcription P00 | 5 | 1 tasks | 4 files |
+| Phase 02-audio-capture-and-transcription P02 | 15 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -74,6 +75,8 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: CGEvent.tapEnable(tap:enable:) used instead of deprecated CGEventTapEnable; tap property is internal for free C callback access
 - [Phase 01-foundation]: KeyboardShortcuts pinned to 1.15.0 (not 2.x) to avoid #Preview macro issues in swift build
 - [Phase 02-audio-capture-and-transcription]: XCTest stubs use XCTSkip to be honest about unimplemented state; testTarget depends on executableTarget Typeness, runs via xcodebuild not swift test
+- [Phase 02-audio-capture-and-transcription]: SwiftWhisper (exPHAT) used over direct whisper.cpp SPM; product name confirmed, simpler Swift API
+- [Phase 02-audio-capture-and-transcription]: nonisolated(unsafe) on Whisper property — not Sendable-compatible with actor isolation
 
 ### Pending Todos
 
@@ -87,6 +90,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-16T14:52:32.114Z
-Stopped at: Completed 02-audio-capture-and-transcription-00-PLAN.md
+Last session: 2026-03-16T14:53:34.229Z
+Stopped at: Completed 02-audio-capture-and-transcription-02-PLAN.md
 Resume file: None
