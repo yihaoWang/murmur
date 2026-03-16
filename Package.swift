@@ -9,9 +9,15 @@ let package = Package(
     products: [
         .executable(name: "Typeness", targets: ["Typeness"])
     ],
+    dependencies: [
+        .package(url: "https://github.com/sindresorhus/KeyboardShortcuts", .upToNextMinor(from: "1.15.0"))
+    ],
     targets: [
         .executableTarget(
             name: "Typeness",
+            dependencies: [
+                .product(name: "KeyboardShortcuts", package: "KeyboardShortcuts")
+            ],
             path: "Typeness",
             sources: [
                 "App/TypenessApp.swift",
@@ -21,7 +27,8 @@ let package = Package(
                 "Input/HotkeyMonitor.swift",
                 "UI/StatusItemView.swift",
                 "UI/SettingsView.swift",
-                "UI/OnboardingView.swift"
+                "UI/OnboardingView.swift",
+                "UI/HotkeyRecorderView.swift"
             ],
         )
     ]
