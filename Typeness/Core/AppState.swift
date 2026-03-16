@@ -14,6 +14,9 @@ import ApplicationServices
 
     enum HotkeyStatus { case unregistered, active, disabled }
     enum PermissionStatus { case unknown, granted, denied, revoked }
+    enum RecordingState { case idle, recording, transcribing }
+
+    var recordingState: RecordingState = .idle
 
     func checkAccessibilityOnStartup() {
         if AXIsProcessTrusted() {
