@@ -15,7 +15,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Speech Recognition
 
-- [x] **STT-01**: App transcribes audio using whisper.cpp with Metal GPU acceleration
+- [x] **STT-01**: App transcribes audio using whisper.cpp with Apple hardware acceleration (CoreML/Accelerate)
 - [x] **STT-02**: App downloads whisper large-v3-turbo model on first launch with progress indicator
 - [x] **STT-03**: App applies VAD gating to prevent hallucinated output on silence/noise
 - [ ] **STT-04**: App displays transcription latency in menu bar or status area

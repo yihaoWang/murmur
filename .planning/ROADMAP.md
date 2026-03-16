@@ -7,7 +7,7 @@ Four phases that build from a working macOS app shell to a fully integrated voic
 ## Phases
 
 - [x] **Phase 1: Foundation** - Menu bar app shell, settings store, model manager, permissions onboarding, and reliable global hotkeys (completed 2026-03-16)
-- [x] **Phase 2: Audio Capture and Transcription** - 16kHz audio pipeline and whisper.cpp Metal-accelerated transcription bridge (completed 2026-03-16)
+- [x] **Phase 2: Audio Capture and Transcription** - 16kHz audio pipeline and whisper.cpp hardware-accelerated transcription bridge (completed 2026-03-16)
 - [ ] **Phase 3: LLM Post-Processing and Text Insertion** - Qwen3-1.7B formatting and dual-path text insertion at cursor
 - [ ] **Phase 4: Pipeline Integration and Polish** - RecordingCoordinator wiring, menu bar status states, debug mode, and distribution readiness
 
@@ -33,14 +33,14 @@ Plans:
 - [ ] 01-04-PLAN.md — Gap closure: interactive hotkey recorder UI (HOTKEY-03)
 
 ### Phase 2: Audio Capture and Transcription
-**Goal**: User's voice is captured from the microphone at 16kHz mono Float32, transcribed by whisper.cpp with Metal GPU acceleration, with silence/noise gating preventing hallucinated output.
+**Goal**: User's voice is captured from the microphone at 16kHz mono Float32, transcribed by whisper.cpp with Apple hardware acceleration (CoreML/Accelerate), with silence/noise gating preventing hallucinated output.
 **Depends on**: Phase 1
 **Requirements**: AUDIO-01, AUDIO-02, AUDIO-03, STT-01, STT-02, STT-03
 **Success Criteria** (what must be TRUE):
   1. App requests microphone permission on first use with a clear explanation message
   2. Audio capture starts and stops within 100ms of a hotkey event
   3. Recorded audio is correctly resampled to 16kHz mono Float32 (feeding garbage-free PCM to whisper.cpp)
-  4. Whisper large-v3-turbo model is downloaded on first launch with a progress indicator; transcription runs on Metal GPU
+  4. Whisper large-v3-turbo model is downloaded on first launch with a progress indicator; transcription runs with hardware acceleration (CoreML for Neural Engine, Accelerate for CPU BLAS)
   5. Speaking a phrase in Traditional Chinese produces correct transcribed text; speaking silence or pure noise produces no output
 **Plans:** 4/4 plans complete
 
