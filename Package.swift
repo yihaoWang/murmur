@@ -10,13 +10,15 @@ let package = Package(
         .executable(name: "Typeness", targets: ["Typeness"])
     ],
     dependencies: [
-        .package(url: "https://github.com/sindresorhus/KeyboardShortcuts", .upToNextMinor(from: "1.15.0"))
+        .package(url: "https://github.com/sindresorhus/KeyboardShortcuts", .upToNextMinor(from: "1.15.0")),
+        .package(url: "https://github.com/exPHAT/SwiftWhisper.git", branch: "master")
     ],
     targets: [
         .executableTarget(
             name: "Typeness",
             dependencies: [
-                .product(name: "KeyboardShortcuts", package: "KeyboardShortcuts")
+                .product(name: "KeyboardShortcuts", package: "KeyboardShortcuts"),
+                .product(name: "SwiftWhisper", package: "SwiftWhisper")
             ],
             path: "Typeness",
             sources: [
@@ -24,12 +26,23 @@ let package = Package(
                 "App/SettingsStore.swift",
                 "Core/AppState.swift",
                 "Core/ModelManager.swift",
+                "Core/AudioCaptureEngine.swift",
+                "Core/TranscriptionEngine.swift",
+                "Core/VAD.swift",
                 "Input/HotkeyMonitor.swift",
                 "UI/StatusItemView.swift",
                 "UI/SettingsView.swift",
                 "UI/OnboardingView.swift",
                 "UI/HotkeyRecorderView.swift"
+            ]
+        ),
+        .testTarget(
+            name: "TypenessTests",
+            dependencies: [
+                "Typeness",
+                .product(name: "SwiftWhisper", package: "SwiftWhisper")
             ],
+            path: "Tests/TypenessTests"
         )
     ]
 )
