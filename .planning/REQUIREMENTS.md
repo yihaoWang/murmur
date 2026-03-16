@@ -35,24 +35,24 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Global Hotkeys
 
-- [ ] **HOTKEY-01**: User can activate voice input via toggle mode (default: Shift+Option+Space)
-- [ ] **HOTKEY-02**: User can activate voice input via push-to-talk (default: Option+Space)
-- [ ] **HOTKEY-03**: User can configure hotkey bindings in settings
-- [ ] **HOTKEY-04**: Hotkeys work globally across all applications
-- [ ] **HOTKEY-05**: Hotkey events are suppressed (not passed to active app) to prevent unwanted input
+- [x] **HOTKEY-01**: User can activate voice input via toggle mode (default: Shift+Option+Space)
+- [x] **HOTKEY-02**: User can activate voice input via push-to-talk (default: Option+Space)
+- [x] **HOTKEY-03**: User can configure hotkey bindings in settings
+- [x] **HOTKEY-04**: Hotkeys work globally across all applications
+- [x] **HOTKEY-05**: Hotkey events are suppressed (not passed to active app) to prevent unwanted input
 
 ### UI / Menu Bar
 
 - [x] **UI-01**: App runs as menu bar app (LSUIElement) with no dock icon
 - [ ] **UI-02**: Menu bar icon shows status states (idle, recording, processing, error)
 - [x] **UI-03**: App displays SwiftUI settings window accessible from menu bar
-- [ ] **UI-04**: Menu bar shows model loading progress on first launch
+- [x] **UI-04**: Menu bar shows model loading progress on first launch
 
 ### System Integration
 
 - [x] **SYS-01**: App can auto-start at login via SMAppService
-- [ ] **SYS-02**: App presents permission onboarding for Accessibility and Microphone on first launch
-- [ ] **SYS-03**: App checks Accessibility trust status on startup and prompts if revoked
+- [x] **SYS-02**: App presents permission onboarding for Accessibility and Microphone on first launch
+- [x] **SYS-03**: App checks Accessibility trust status on startup and prompts if revoked
 
 ### Debug & Polish
 
@@ -89,15 +89,15 @@ Deferred to future release. Tracked but not in current roadmap.
 |-------------|-------|--------|
 | UI-01 | Phase 1 | Complete |
 | UI-03 | Phase 1 | Complete |
-| UI-04 | Phase 1 | Pending |
+| UI-04 | Phase 1 | Complete |
 | SYS-01 | Phase 1 | Complete |
-| SYS-02 | Phase 1 | Pending |
-| SYS-03 | Phase 1 | Pending |
-| HOTKEY-01 | Phase 1 | Pending |
-| HOTKEY-02 | Phase 1 | Pending |
-| HOTKEY-03 | Phase 1 | Pending |
-| HOTKEY-04 | Phase 1 | Pending |
-| HOTKEY-05 | Phase 1 | Pending |
+| SYS-02 | Phase 1 | Complete |
+| SYS-03 | Phase 1 | Complete |
+| HOTKEY-01 | Phase 1 | Complete |
+| HOTKEY-02 | Phase 1 | Complete |
+| HOTKEY-03 | Phase 1 | Complete |
+| HOTKEY-04 | Phase 1 | Complete |
+| HOTKEY-05 | Phase 1 | Complete |
 | AUDIO-01 | Phase 2 | Pending |
 | AUDIO-02 | Phase 2 | Pending |
 | AUDIO-03 | Phase 2 | Pending |

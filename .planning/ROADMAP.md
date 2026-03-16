@@ -6,7 +6,7 @@ Four phases that build from a working macOS app shell to a fully integrated voic
 
 ## Phases
 
-- [ ] **Phase 1: Foundation** - Menu bar app shell, settings store, model manager, permissions onboarding, and reliable global hotkeys
+- [x] **Phase 1: Foundation** - Menu bar app shell, settings store, model manager, permissions onboarding, and reliable global hotkeys (completed 2026-03-16)
 - [ ] **Phase 2: Audio Capture and Transcription** - 16kHz audio pipeline and whisper.cpp Metal-accelerated transcription bridge
 - [ ] **Phase 3: LLM Post-Processing and Text Insertion** - Qwen3-1.7B formatting and dual-path text insertion at cursor
 - [ ] **Phase 4: Pipeline Integration and Polish** - RecordingCoordinator wiring, menu bar status states, debug mode, and distribution readiness
@@ -24,7 +24,7 @@ Four phases that build from a working macOS app shell to a fully integrated voic
   4. Both toggle mode (Shift+Option+Space) and push-to-talk (Option+Space) hotkeys fire globally across all applications and are configurable in settings
   5. Hotkey events are suppressed so they do not reach the active application; tap survives 20+ consecutive activations without silently disabling
   6. App can auto-start at login via SMAppService and model download progress is visible in the menu bar on first launch
-**Plans:** 1/3 plans executed
+**Plans:** 3/3 plans complete
 
 Plans:
 - [ ] 01-01-PLAN.md — Xcode project, app shell, MenuBarExtra, SettingsStore, Settings window, launch-at-login
@@ -71,7 +71,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 1/3 | In Progress|  |
+| 1. Foundation | 3/3 | Complete   | 2026-03-16 |
 | 2. Audio Capture and Transcription | 0/TBD | Not started | - |
 | 3. LLM Post-Processing and Text Insertion | 0/TBD | Not started | - |
 | 4. Pipeline Integration and Polish | 0/TBD | Not started | - |
