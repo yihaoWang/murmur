@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-foundation-02-PLAN.md
-last_updated: "2026-03-16T14:26:26.110Z"
+stopped_at: Completed 01-foundation-04-PLAN.md
+last_updated: "2026-03-16T14:41:14.894Z"
 last_activity: 2026-03-16 — Completed plan 01-01
 progress:
   total_phases: 4
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  total_plans: 8
+  completed_plans: 4
   percent: 33
 ---
 
@@ -53,6 +53,7 @@ Progress: [███░░░░░░░] 33%
 | Phase 01-foundation P01 | 15 | 2 tasks | 9 files |
 | Phase 01-foundation P03 | 4 | 2 tasks | 5 files |
 | Phase 01-foundation P02 | 10 | 2 tasks | 5 files |
+| Phase 01-foundation P04 | 15 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -70,6 +71,7 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: App sandbox disabled for CGEventTap support; microphone entitlement added
 - [Phase 01-foundation]: ModelManager actor pattern for thread-safe model downloads with URLSessionDownloadDelegate progress to AppState
 - [Phase 01-foundation]: CGEvent.tapEnable(tap:enable:) used instead of deprecated CGEventTapEnable; tap property is internal for free C callback access
+- [Phase 01-foundation]: KeyboardShortcuts pinned to 1.15.0 (not 2.x) to avoid #Preview macro issues in swift build
 
 ### Pending Todos
 
@@ -83,6 +85,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-16T14:26:26.108Z
-Stopped at: Completed 01-foundation-02-PLAN.md
+Last session: 2026-03-16T14:41:14.892Z
+Stopped at: Completed 01-foundation-04-PLAN.md
 Resume file: None

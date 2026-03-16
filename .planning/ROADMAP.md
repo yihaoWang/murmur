@@ -24,7 +24,7 @@ Four phases that build from a working macOS app shell to a fully integrated voic
   4. Both toggle mode (Shift+Option+Space) and push-to-talk (Option+Space) hotkeys fire globally across all applications and are configurable in settings
   5. Hotkey events are suppressed so they do not reach the active application; tap survives 20+ consecutive activations without silently disabling
   6. App can auto-start at login via SMAppService and model download progress is visible in the menu bar on first launch
-**Plans:** 4 plans (3 complete + 1 gap closure)
+**Plans:** 4/4 plans complete
 
 Plans:
 - [x] 01-01-PLAN.md — Xcode project, app shell, MenuBarExtra, SettingsStore, Settings window, launch-at-login
@@ -77,7 +77,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 3/4 | Gap closure pending | 2026-03-16 |
+| 1. Foundation | 4/4 | Complete   | 2026-03-16 |
 | 2. Audio Capture and Transcription | 0/3 | Planning complete | - |
 | 3. LLM Post-Processing and Text Insertion | 0/TBD | Not started | - |
 | 4. Pipeline Integration and Polish | 0/TBD | Not started | - |
