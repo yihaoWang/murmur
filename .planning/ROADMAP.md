@@ -42,9 +42,10 @@ Plans:
   3. Recorded audio is correctly resampled to 16kHz mono Float32 (feeding garbage-free PCM to whisper.cpp)
   4. Whisper large-v3-turbo model is downloaded on first launch with a progress indicator; transcription runs on Metal GPU
   5. Speaking a phrase in Traditional Chinese produces correct transcribed text; speaking silence or pure noise produces no output
-**Plans:** 3 plans
+**Plans:** 4 plans
 
 Plans:
+- [ ] 02-00-PLAN.md — Wave 0: XCTest target and stub test files for Nyquist compliance
 - [ ] 02-01-PLAN.md — AudioCaptureEngine with AVAudioEngine + AVAudioConverter resampling to 16kHz mono Float32
 - [ ] 02-02-PLAN.md — SwiftWhisper SPM dependency, TranscriptionEngine actor, VAD energy gate
 - [ ] 02-03-PLAN.md — Wire capture and transcription to hotkey events, verify model download URL
@@ -78,6 +79,6 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 4/4 | Complete   | 2026-03-16 |
-| 2. Audio Capture and Transcription | 0/3 | Planning complete | - |
+| 2. Audio Capture and Transcription | 0/4 | Planning complete | - |
 | 3. LLM Post-Processing and Text Insertion | 0/TBD | Not started | - |
 | 4. Pipeline Integration and Polish | 0/TBD | Not started | - |
