@@ -3,6 +3,7 @@ import SwiftUI
 struct StatusItemView: View {
     @Environment(\.openSettings) private var openSettings
     let appState: AppState
+    let modelManager: ModelManager?
 
     var body: some View {
         VStack(spacing: 12) {
@@ -14,6 +15,17 @@ struct StatusItemView: View {
                     .progressViewStyle(.linear)
                 Text("Downloading models... \(Int(progress * 100))%")
                     .font(.caption)
+            } else if !appState.isWhisperModelReady {
+                Text("Models not downloaded")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Button("Download") {
+                    guard let manager = modelManager else { return }
+                    Task {
+                        try? await manager.downloadWhisperModelIfNeeded()
+                    }
+                }
+                .buttonStyle(.borderedProminent)
             }
 
             Divider()

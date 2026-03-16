@@ -26,8 +26,19 @@ actor ModelManager {
         FileManager.default.fileExists(atPath: whisperModelPath().path)
     }
 
+    func checkAndUpdateModelStatus() async {
+        if isWhisperModelDownloaded() {
+            await MainActor.run {
+                appState.isWhisperModelReady = true
+            }
+        }
+    }
+
     func downloadWhisperModelIfNeeded() async throws {
-        guard !isWhisperModelDownloaded() else { return }
+        guard !isWhisperModelDownloaded() else {
+            await MainActor.run { appState.isWhisperModelReady = true }
+            return
+        }
         try ensureModelsDirectory()
 
         // Placeholder URL — will be replaced with actual HuggingFace URL in Phase 2
@@ -47,6 +58,7 @@ actor ModelManager {
 
         await MainActor.run {
             appStateRef.modelDownloadProgress = nil  // Download complete
+            appStateRef.isWhisperModelReady = true
         }
     }
 }
