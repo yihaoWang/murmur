@@ -43,14 +43,14 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### UI / Menu Bar
 
-- [ ] **UI-01**: App runs as menu bar app (LSUIElement) with no dock icon
+- [x] **UI-01**: App runs as menu bar app (LSUIElement) with no dock icon
 - [ ] **UI-02**: Menu bar icon shows status states (idle, recording, processing, error)
-- [ ] **UI-03**: App displays SwiftUI settings window accessible from menu bar
+- [x] **UI-03**: App displays SwiftUI settings window accessible from menu bar
 - [ ] **UI-04**: Menu bar shows model loading progress on first launch
 
 ### System Integration
 
-- [ ] **SYS-01**: App can auto-start at login via SMAppService
+- [x] **SYS-01**: App can auto-start at login via SMAppService
 - [ ] **SYS-02**: App presents permission onboarding for Accessibility and Microphone on first launch
 - [ ] **SYS-03**: App checks Accessibility trust status on startup and prompts if revoked
 
@@ -87,10 +87,10 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| UI-01 | Phase 1 | Pending |
-| UI-03 | Phase 1 | Pending |
+| UI-01 | Phase 1 | Complete |
+| UI-03 | Phase 1 | Complete |
 | UI-04 | Phase 1 | Pending |
-| SYS-01 | Phase 1 | Pending |
+| SYS-01 | Phase 1 | Complete |
 | SYS-02 | Phase 1 | Pending |
 | SYS-03 | Phase 1 | Pending |
 | HOTKEY-01 | Phase 1 | Pending |
