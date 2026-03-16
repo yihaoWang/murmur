@@ -6,6 +6,13 @@ enum TranscriptionError: Error, Equatable {
     case emptyAudio
 }
 
+/// TranscriptionEngine wraps SwiftWhisper for speech-to-text inference.
+///
+/// Acceleration: SwiftWhisper compiles whisper.cpp with GGML_USE_ACCELERATE (CPU BLAS via
+/// Apple Accelerate framework) and WHISPER_USE_COREML (Apple Neural Engine via CoreML).
+/// The Metal GPU compute backend (GGML_USE_METAL) is not included because SwiftWhisper's
+/// bundled whisper.cpp predates the ggml Metal backend source files. CoreML on Apple Silicon
+/// ANE provides excellent inference performance for this workload.
 actor TranscriptionEngine {
     // nonisolated(unsafe) is used because Whisper is not Sendable-compatible with actor isolation.
     // This is safe because all access is serialized through the actor's executor.
