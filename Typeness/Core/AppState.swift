@@ -17,6 +17,7 @@ import ApplicationServices
     enum RecordingState { case idle, recording, transcribing }
 
     var recordingState: RecordingState = .idle
+    var lastTranscription: String = ""
 
     func checkAccessibilityOnStartup() {
         if AXIsProcessTrusted() {

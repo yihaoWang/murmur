@@ -41,8 +41,7 @@ actor ModelManager {
         }
         try ensureModelsDirectory()
 
-        // Placeholder URL — will be replaced with actual HuggingFace URL in Phase 2
-        let remoteURL = URL(string: "https://huggingface.co/ggml-org/whisper-large-v3-turbo/resolve/main/ggml-large-v3-turbo.bin")!
+        let remoteURL = URL(string: "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo.bin")!
         let destination = whisperModelPath()
 
         let appStateRef = appState
