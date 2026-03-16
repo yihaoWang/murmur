@@ -17,8 +17,11 @@ let package = Package(
                 "App/TypenessApp.swift",
                 "App/SettingsStore.swift",
                 "Core/AppState.swift",
+                "Core/ModelManager.swift",
+                "Input/HotkeyMonitor.swift",
                 "UI/StatusItemView.swift",
-                "UI/SettingsView.swift"
+                "UI/SettingsView.swift",
+                "UI/OnboardingView.swift"
             ],
         )
     ]
