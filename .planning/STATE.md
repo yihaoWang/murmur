@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 02-03-PLAN.md
-last_updated: "2026-03-16T14:59:06.368Z"
-last_activity: 2026-03-16 — Completed plan 01-01
+status: completed
+stopped_at: Completed 02-04-PLAN.md
+last_updated: "2026-03-16T23:51:01.463Z"
+last_activity: 2026-03-16 — Completed plan 02-03
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 8
-  completed_plans: 8
-  percent: 33
+  total_plans: 9
+  completed_plans: 9
+  percent: 100
 ---
 
 # Project State
@@ -59,6 +59,7 @@ Progress: [██████████] 100%
 | Phase 02-audio-capture-and-transcription P01 | 3 | 1 tasks | 3 files |
 | Phase 02-audio-capture-and-transcription P03 | 5 | 1 tasks | 4 files |
 | Phase 02-audio-capture-and-transcription P03 | 10 | 2 tasks | 4 files |
+| Phase 02-audio-capture-and-transcription P04 | 5 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -82,6 +83,7 @@ Recent decisions affecting current work:
 - [Phase 02-audio-capture-and-transcription]: nonisolated(unsafe) on Whisper property — not Sendable-compatible with actor isolation
 - [Phase 02-01]: targetFormat and maxFrames exposed as internal (not private) to enable XCTest assertions; filled-flag pattern in AVAudioConverter inputBlock prevents double-feed on non-integer sample rate ratios
 - [Phase 02-audio-capture-and-transcription]: Whisper model URL updated to ggerganov/whisper.cpp (ggml-org returns 401)
+- [Phase 02-audio-capture-and-transcription]: STT-01 acceleration: CoreML (ANE) + Accelerate (CPU BLAS) is the actual path; Metal GPU backend unavailable because SwiftWhisper bundles whisper.cpp that predates ggml-metal source files
 
 ### Pending Todos
 
@@ -95,6 +97,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-16T14:59:06.366Z
-Stopped at: Completed 02-03-PLAN.md
+Last session: 2026-03-16T23:51:01.461Z
+Stopped at: Completed 02-04-PLAN.md
 Resume file: None
