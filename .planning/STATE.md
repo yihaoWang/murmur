@@ -56,6 +56,7 @@ Progress: [███░░░░░░░] 33%
 | Phase 01-foundation P04 | 15 | 2 tasks | 5 files |
 | Phase 02-audio-capture-and-transcription P00 | 5 | 1 tasks | 4 files |
 | Phase 02-audio-capture-and-transcription P02 | 15 | 2 tasks | 5 files |
+| Phase 02-audio-capture-and-transcription P01 | 3 | 1 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -77,6 +78,7 @@ Recent decisions affecting current work:
 - [Phase 02-audio-capture-and-transcription]: XCTest stubs use XCTSkip to be honest about unimplemented state; testTarget depends on executableTarget Typeness, runs via xcodebuild not swift test
 - [Phase 02-audio-capture-and-transcription]: SwiftWhisper (exPHAT) used over direct whisper.cpp SPM; product name confirmed, simpler Swift API
 - [Phase 02-audio-capture-and-transcription]: nonisolated(unsafe) on Whisper property — not Sendable-compatible with actor isolation
+- [Phase 02-01]: targetFormat and maxFrames exposed as internal (not private) to enable XCTest assertions; filled-flag pattern in AVAudioConverter inputBlock prevents double-feed on non-integer sample rate ratios
 
 ### Pending Todos
 

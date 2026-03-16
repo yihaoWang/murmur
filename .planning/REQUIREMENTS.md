@@ -10,7 +10,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Audio Capture
 
 - [x] **AUDIO-01**: App can record microphone audio at 16kHz mono Float32 PCM format
-- [ ] **AUDIO-02**: App requests microphone permission on first use with clear explanation
+- [x] **AUDIO-02**: App requests microphone permission on first use with clear explanation
 - [x] **AUDIO-03**: Audio capture starts/stops in response to hotkey events with < 100ms latency
 
 ### Speech Recognition
@@ -99,7 +99,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | HOTKEY-04 | Phase 1 | Complete |
 | HOTKEY-05 | Phase 1 | Complete |
 | AUDIO-01 | Phase 2 | Complete |
-| AUDIO-02 | Phase 2 | Pending |
+| AUDIO-02 | Phase 2 | Complete |
 | AUDIO-03 | Phase 2 | Complete |
 | STT-01 | Phase 2 | Complete |
 | STT-02 | Phase 2 | Pending |
