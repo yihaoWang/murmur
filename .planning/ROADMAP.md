@@ -42,7 +42,12 @@ Plans:
   3. Recorded audio is correctly resampled to 16kHz mono Float32 (feeding garbage-free PCM to whisper.cpp)
   4. Whisper large-v3-turbo model is downloaded on first launch with a progress indicator; transcription runs on Metal GPU
   5. Speaking a phrase in Traditional Chinese produces correct transcribed text; speaking silence or pure noise produces no output
-**Plans**: TBD
+**Plans:** 3 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — AudioCaptureEngine with AVAudioEngine + AVAudioConverter resampling to 16kHz mono Float32
+- [ ] 02-02-PLAN.md — SwiftWhisper SPM dependency, TranscriptionEngine actor, VAD energy gate
+- [ ] 02-03-PLAN.md — Wire capture and transcription to hotkey events, verify model download URL
 
 ### Phase 3: LLM Post-Processing and Text Insertion
 **Goal**: Raw whisper transcription is formatted by a local Qwen3-1.7B model for Traditional Chinese punctuation conventions, then inserted at the cursor position in any application.
@@ -73,6 +78,6 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/4 | Gap closure pending | 2026-03-16 |
-| 2. Audio Capture and Transcription | 0/TBD | Not started | - |
+| 2. Audio Capture and Transcription | 0/3 | Planning complete | - |
 | 3. LLM Post-Processing and Text Insertion | 0/TBD | Not started | - |
 | 4. Pipeline Integration and Polish | 0/TBD | Not started | - |
