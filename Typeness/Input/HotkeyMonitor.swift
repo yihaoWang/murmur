@@ -62,6 +62,13 @@ final class HotkeyMonitor {
         runLoopSource = nil
     }
 
+    func loadSettings(from store: SettingsStore) {
+        toggleKeyCode = Int64(store.toggleHotkeyKeyCode)
+        toggleModifiers = CGEventFlags(rawValue: UInt64(store.toggleHotkeyModifiers))
+        pttKeyCode = Int64(store.pttHotkeyKeyCode)
+        pttModifiers = CGEventFlags(rawValue: UInt64(store.pttHotkeyModifiers))
+    }
+
     func matchesToggle(keyCode: Int64, flags: CGEventFlags) -> Bool {
         keyCode == toggleKeyCode &&
         flags.contains(toggleModifiers) &&

@@ -1,5 +1,6 @@
 import SwiftUI
 import ServiceManagement
+import KeyboardShortcuts
 
 struct SettingsView: View {
     let appState: AppState
@@ -42,14 +43,8 @@ struct GeneralSettingsView: View {
             }
 
             Section("Hotkeys") {
-                LabeledContent("Toggle Mode") {
-                    Text("⇧⌥Space")
-                        .foregroundStyle(.secondary)
-                }
-                LabeledContent("Push to Talk") {
-                    Text("⌥Space")
-                        .foregroundStyle(.secondary)
-                }
+                HotkeyRecorderRow(title: "Toggle Mode", name: .toggleMode, settingsStore: settingsStore)
+                HotkeyRecorderRow(title: "Push to Talk", name: .pushToTalk, settingsStore: settingsStore)
             }
 
             Section("Permissions") {
