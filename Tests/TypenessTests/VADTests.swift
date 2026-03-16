@@ -3,20 +3,17 @@ import XCTest
 
 final class VADTests: XCTestCase {
     func testSilenceRejected() throws {
-        // STUB: Plan 02-02 will implement after VADGate exists
-        // Verify: VADGate.hasVoiceActivity(samples: [Float](repeating: 0.0, count: 16000)) == false
-        throw XCTSkip("Awaiting VADGate implementation in plan 02-02")
+        // 16000 frames of silence (0.0) — below threshold
+        XCTAssertFalse(VADGate.hasVoiceActivity(samples: [Float](repeating: 0.0, count: 16000)))
     }
 
     func testShortRecordingRejected() throws {
-        // STUB: Plan 02-02 will implement
-        // Verify: VADGate.hasVoiceActivity(samples: [Float](repeating: 0.5, count: 4000)) == false
-        throw XCTSkip("Awaiting VADGate implementation in plan 02-02")
+        // 4000 frames (0.25s) of loud audio — too short, below minimumDurationSeconds (0.5s = 8000 frames)
+        XCTAssertFalse(VADGate.hasVoiceActivity(samples: [Float](repeating: 0.5, count: 4000)))
     }
 
     func testLoudAudioAccepted() throws {
-        // STUB: Plan 02-02 will implement
-        // Verify: VADGate.hasVoiceActivity(samples: [Float](repeating: 0.5, count: 16000)) == true
-        throw XCTSkip("Awaiting VADGate implementation in plan 02-02")
+        // 16000 frames (1.0s) of 0.5 amplitude — RMS = 0.5, well above threshold 0.01
+        XCTAssertTrue(VADGate.hasVoiceActivity(samples: [Float](repeating: 0.5, count: 16000)))
     }
 }
