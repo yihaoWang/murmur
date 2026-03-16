@@ -30,7 +30,7 @@ Plans:
 - [x] 01-01-PLAN.md — Xcode project, app shell, MenuBarExtra, SettingsStore, Settings window, launch-at-login
 - [x] 01-02-PLAN.md — CGEventTap hotkey monitor, permissions onboarding, startup AX check
 - [x] 01-03-PLAN.md — ModelManager download infrastructure, progress display in menu bar
-- [ ] 01-04-PLAN.md — Gap closure: interactive hotkey recorder UI (HOTKEY-03)
+- [x] 01-04-PLAN.md — Gap closure: interactive hotkey recorder UI (HOTKEY-03)
 
 ### Phase 2: Audio Capture and Transcription
 **Goal**: User's voice is captured from the microphone at 16kHz mono Float32, transcribed by whisper.cpp with Apple hardware acceleration (CoreML/Accelerate), with silence/noise gating preventing hallucinated output.
@@ -45,10 +45,11 @@ Plans:
 **Plans:** 5/5 plans complete
 
 Plans:
-- [ ] 02-00-PLAN.md — Wave 0: XCTest target and stub test files for Nyquist compliance
-- [ ] 02-01-PLAN.md — AudioCaptureEngine with AVAudioEngine + AVAudioConverter resampling to 16kHz mono Float32
-- [ ] 02-02-PLAN.md — SwiftWhisper SPM dependency, TranscriptionEngine actor, VAD energy gate
-- [ ] 02-03-PLAN.md — Wire capture and transcription to hotkey events, verify model download URL
+- [x] 02-00-PLAN.md — Wave 0: XCTest target and stub test files for Nyquist compliance
+- [x] 02-01-PLAN.md — AudioCaptureEngine with AVAudioEngine + AVAudioConverter resampling to 16kHz mono Float32
+- [x] 02-02-PLAN.md — SwiftWhisper SPM dependency, TranscriptionEngine actor, VAD energy gate
+- [x] 02-03-PLAN.md — Wire capture and transcription to hotkey events, verify model download URL
+- [x] 02-04-PLAN.md — Gap closure: update STT-01 to CoreML/Accelerate
 
 ### Phase 3: LLM Post-Processing and Text Insertion
 **Goal**: Raw whisper transcription is formatted by a local Qwen3-1.7B model for Traditional Chinese punctuation conventions, then inserted at the cursor position in any application.
@@ -60,7 +61,12 @@ Plans:
   3. Text is inserted at the cursor position in native apps (TextEdit, Notes, Mail) via Accessibility API
   4. In Electron apps (VS Code, Slack) and Terminal where AX insertion fails, app falls back to clipboard paste and restores original clipboard contents afterward
   5. NSPasteboard TransientType marker is used so clipboard history managers do not capture the temporary paste content
-**Plans**: TBD
+**Plans:** 3 plans
+
+Plans:
+- [ ] 03-00-PLAN.md — Wave 0: mlx-swift-lm SPM dependency, test stubs, placeholder source files
+- [ ] 03-01-PLAN.md — PostProcessingEngine actor with Qwen3-1.7B formatting, LLM model download
+- [ ] 03-02-PLAN.md — TextInsertionEngine with AX primary and clipboard fallback paths
 
 ### Phase 4: Pipeline Integration and Polish
 **Goal**: All components are wired into a single RecordingCoordinator state machine delivering end-to-end voice-to-text, with complete menu bar status feedback, debug recording archive, and confirm-before-insert mode.
@@ -80,5 +86,5 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Foundation | 4/4 | Complete   | 2026-03-16 |
 | 2. Audio Capture and Transcription | 5/5 | Complete   | 2026-03-16 |
-| 3. LLM Post-Processing and Text Insertion | 0/TBD | Not started | - |
+| 3. LLM Post-Processing and Text Insertion | 0/3 | In progress | - |
 | 4. Pipeline Integration and Polish | 0/TBD | Not started | - |
