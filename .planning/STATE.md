@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-audio-capture-and-transcription-01-PLAN.md
-last_updated: "2026-03-16T14:55:00.000Z"
-last_activity: 2026-03-16 — Completed plan 02-01
+stopped_at: "Checkpoint 02-03 Task 2: Awaiting human verification of end-to-end pipeline"
+last_updated: "2026-03-16T14:56:53.998Z"
+last_activity: 2026-03-16 — Completed plan 01-01
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 8
-  completed_plans: 7
+  completed_plans: 8
   percent: 33
 ---
 
@@ -57,6 +57,7 @@ Progress: [███░░░░░░░] 33%
 | Phase 02-audio-capture-and-transcription P00 | 5 | 1 tasks | 4 files |
 | Phase 02-audio-capture-and-transcription P02 | 15 | 2 tasks | 5 files |
 | Phase 02-audio-capture-and-transcription P01 | 3 | 1 tasks | 3 files |
+| Phase 02-audio-capture-and-transcription P03 | 5 | 1 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,7 @@ Recent decisions affecting current work:
 - [Phase 02-audio-capture-and-transcription]: SwiftWhisper (exPHAT) used over direct whisper.cpp SPM; product name confirmed, simpler Swift API
 - [Phase 02-audio-capture-and-transcription]: nonisolated(unsafe) on Whisper property — not Sendable-compatible with actor isolation
 - [Phase 02-01]: targetFormat and maxFrames exposed as internal (not private) to enable XCTest assertions; filled-flag pattern in AVAudioConverter inputBlock prevents double-feed on non-integer sample rate ratios
+- [Phase 02-audio-capture-and-transcription]: Whisper model URL updated to ggerganov/whisper.cpp (ggml-org returns 401)
 
 ### Pending Todos
 
@@ -92,6 +94,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-16T14:53:34.229Z
-Stopped at: Completed 02-audio-capture-and-transcription-02-PLAN.md
+Last session: 2026-03-16T14:56:53.995Z
+Stopped at: Checkpoint 02-03 Task 2: Awaiting human verification of end-to-end pipeline
 Resume file: None
