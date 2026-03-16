@@ -24,7 +24,12 @@ Four phases that build from a working macOS app shell to a fully integrated voic
   4. Both toggle mode (Shift+Option+Space) and push-to-talk (Option+Space) hotkeys fire globally across all applications and are configurable in settings
   5. Hotkey events are suppressed so they do not reach the active application; tap survives 20+ consecutive activations without silently disabling
   6. App can auto-start at login via SMAppService and model download progress is visible in the menu bar on first launch
-**Plans**: TBD
+**Plans:** 3 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Xcode project, app shell, MenuBarExtra, SettingsStore, Settings window, launch-at-login
+- [ ] 01-02-PLAN.md — CGEventTap hotkey monitor, permissions onboarding, startup AX check
+- [ ] 01-03-PLAN.md — ModelManager download infrastructure, progress display in menu bar
 
 ### Phase 2: Audio Capture and Transcription
 **Goal**: User's voice is captured from the microphone at 16kHz mono Float32, transcribed by whisper.cpp with Metal GPU acceleration, with silence/noise gating preventing hallucinated output.
@@ -66,7 +71,7 @@ Four phases that build from a working macOS app shell to a fully integrated voic
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/TBD | Not started | - |
+| 1. Foundation | 0/3 | Planned | - |
 | 2. Audio Capture and Transcription | 0/TBD | Not started | - |
 | 3. LLM Post-Processing and Text Insertion | 0/TBD | Not started | - |
 | 4. Pipeline Integration and Polish | 0/TBD | Not started | - |
