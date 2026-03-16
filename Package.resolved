@@ -8,6 +8,15 @@
         "revision" : "ac302e21da5883f4bd0490cbd0cb710b08740500",
         "version" : "1.15.0"
       }
+    },
+    {
+      "identity" : "swiftwhisper",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/exPHAT/SwiftWhisper.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "c340197966ebd264f3135d3955874b40f8ed58bc"
+      }
     }
   ],
   "version" : 2
