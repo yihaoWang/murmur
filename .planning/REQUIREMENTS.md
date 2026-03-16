@@ -87,13 +87,42 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (Populated during roadmap creation) | | |
+| UI-01 | Phase 1 | Pending |
+| UI-03 | Phase 1 | Pending |
+| UI-04 | Phase 1 | Pending |
+| SYS-01 | Phase 1 | Pending |
+| SYS-02 | Phase 1 | Pending |
+| SYS-03 | Phase 1 | Pending |
+| HOTKEY-01 | Phase 1 | Pending |
+| HOTKEY-02 | Phase 1 | Pending |
+| HOTKEY-03 | Phase 1 | Pending |
+| HOTKEY-04 | Phase 1 | Pending |
+| HOTKEY-05 | Phase 1 | Pending |
+| AUDIO-01 | Phase 2 | Pending |
+| AUDIO-02 | Phase 2 | Pending |
+| AUDIO-03 | Phase 2 | Pending |
+| STT-01 | Phase 2 | Pending |
+| STT-02 | Phase 2 | Pending |
+| STT-03 | Phase 2 | Pending |
+| LLM-01 | Phase 3 | Pending |
+| LLM-02 | Phase 3 | Pending |
+| LLM-03 | Phase 3 | Pending |
+| INSERT-01 | Phase 3 | Pending |
+| INSERT-02 | Phase 3 | Pending |
+| INSERT-03 | Phase 3 | Pending |
+| INSERT-04 | Phase 3 | Pending |
+| UI-02 | Phase 4 | Pending |
+| STT-04 | Phase 4 | Pending |
+| DEBUG-01 | Phase 4 | Pending |
+| DEBUG-02 | Phase 4 | Pending |
+| DEBUG-03 | Phase 4 | Pending |
+| DEBUG-04 | Phase 4 | Pending |
 
 **Coverage:**
-- v1 requirements: 24 total
-- Mapped to phases: 0
-- Unmapped: 24
+- v1 requirements: 30 total
+- Mapped to phases: 30
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-16*
-*Last updated: 2026-03-16 after initial definition*
+*Last updated: 2026-03-16 after roadmap creation*
