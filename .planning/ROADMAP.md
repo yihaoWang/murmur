@@ -78,7 +78,11 @@ Plans:
   3. Transcription latency is displayed in the menu bar or status area after each transcription
   4. User can enable debug mode in settings; when enabled, each transcription session saves a WAV file and JSON metadata to disk
   5. User can enable confirm-before-insert in settings; when enabled, the transcribed text is shown for review and must be confirmed before insertion
-**Plans**: TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — AppState extensions, DebugArchiver, settings toggles, unit tests
+- [ ] 04-02-PLAN.md — Full pipeline wiring, dynamic menu bar icon, latency display, confirm-before-insert
 
 ## Progress
 
@@ -87,4 +91,4 @@ Plans:
 | 1. Foundation | 4/4 | Complete   | 2026-03-16 |
 | 2. Audio Capture and Transcription | 5/5 | Complete   | 2026-03-16 |
 | 3. LLM Post-Processing and Text Insertion | 3/3 | Complete   | 2026-03-17 |
-| 4. Pipeline Integration and Polish | 0/TBD | Not started | - |
+| 4. Pipeline Integration and Polish | 0/2 | Not started | - |
