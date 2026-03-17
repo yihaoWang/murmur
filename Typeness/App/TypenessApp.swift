@@ -1,4 +1,5 @@
 import SwiftUI
+import KeyboardShortcuts
 
 @main
 struct TypenessApp: App {
@@ -33,6 +34,7 @@ struct TypenessApp: App {
                             appState.llmDownloadProgress = progress
                         }
                         appState.isLLMModelReady = true
+                        appState.llmDownloadProgress = nil
                     }
                 }
                 .onAppear {
@@ -65,6 +67,10 @@ struct TypenessApp: App {
     private func setupApp() {
         appState.checkAccessibilityOnStartup()
 
+        // Disable KeyboardShortcuts framework interception — we use CGEventTap instead
+        KeyboardShortcuts.disable(.toggleMode)
+        KeyboardShortcuts.disable(.pushToTalk)
+
         if !settingsStore.hasShownOnboarding {
             showOnboarding = true
         } else if appState.accessibilityStatus == .granted {
@@ -75,8 +81,7 @@ struct TypenessApp: App {
     }
 
     private func startHotkeyMonitor() {
-        hotkeyMonitor.toggleKeyCode = Int64(settingsStore.toggleHotkeyKeyCode)
-        hotkeyMonitor.pttKeyCode = Int64(settingsStore.pttHotkeyKeyCode)
+        hotkeyMonitor.loadSettings(from: settingsStore)
         do {
             try hotkeyMonitor.start()
             appState.hotkeyStatus = .active
@@ -154,6 +159,14 @@ struct TypenessApp: App {
             if settingsStore.confirmBeforeInsert {
                 appState.pendingTranscription = finalText
                 appState.lastTranscription = rawText
+                if settingsStore.debugModeEnabled {
+                    appState.pendingDebugContext = AppState.PendingDebugContext(
+                        frames: frames,
+                        rawTranscription: rawText,
+                        formattedText: finalText,
+                        latencyMs: latencyMs
+                    )
+                }
                 // insertion deferred to ConfirmInsertView callback
             } else {
                 let path = textInsertionEngine.insert(finalText)

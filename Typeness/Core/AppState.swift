@@ -22,7 +22,15 @@ import ApplicationServices
     var lastTranscription: String = ""
     var lastTranscriptionLatencyMs: Double? = nil
     var pendingTranscription: String? = nil
+    var pendingDebugContext: PendingDebugContext? = nil
     var lastError: String? = nil
+
+    struct PendingDebugContext {
+        let frames: [Float]
+        let rawTranscription: String
+        let formattedText: String
+        let latencyMs: Double
+    }
 
     var menuBarIconName: String {
         if lastError != nil { return "exclamationmark.triangle" }
