@@ -31,7 +31,11 @@ actor AudioCaptureEngine {
         }
     }
 
+    private var isRunning = false
+
     func start() throws {
+        guard !isRunning else { return }
+
         let inputNode = engine.inputNode
         let inputFormat = inputNode.outputFormat(forBus: 0)
 
@@ -40,6 +44,9 @@ actor AudioCaptureEngine {
         }
         converter = conv
         samples.removeAll()
+
+        // Remove any leftover tap before installing a new one
+        inputNode.removeTap(onBus: 0)
 
         let bufferSize = AVAudioFrameCount(inputFormat.sampleRate * 0.1)
         inputNode.installTap(onBus: 0, bufferSize: bufferSize, format: inputFormat) {
@@ -50,6 +57,7 @@ actor AudioCaptureEngine {
 
         do {
             try engine.start()
+            isRunning = true
         } catch {
             inputNode.removeTap(onBus: 0)
             throw AudioError.engineStartFailed
@@ -83,6 +91,8 @@ actor AudioCaptureEngine {
     }
 
     func stop() -> [Float] {
+        guard isRunning else { return [] }
+        isRunning = false
         engine.inputNode.removeTap(onBus: 0)
         engine.stop()
         return samples

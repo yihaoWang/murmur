@@ -119,9 +119,16 @@ struct MurmurApp: App {
 
     private func handleRecordingStart() async {
         AppLogger.log("handleRecordingStart")
+        guard appState.recordingState == .idle else {
+            AppLogger.log("not idle, ignoring start")
+            return
+        }
+        // Set state synchronously before any await to prevent re-entry
+        appState.recordingState = .recording
         guard await audioEngine.checkMicrophonePermission() else {
             AppLogger.log("microphone permission denied")
             appState.microphoneStatus = .denied
+            appState.recordingState = .idle
             return
         }
         appState.microphoneStatus = .granted
@@ -142,9 +149,10 @@ struct MurmurApp: App {
             AppLogger.log("not recording, ignoring stop")
             return
         }
+        // Set state synchronously before any await to prevent re-entry
+        appState.recordingState = .transcribing
         let frames = await audioEngine.stop()
         let startTime = Date()
-        appState.recordingState = .transcribing
         RecordingOverlayWindow.shared.show(state: .transcribing)
         AppLogger.log("audio stopped, frames=\(frames.count)")
 
