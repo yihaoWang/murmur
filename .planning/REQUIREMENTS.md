@@ -24,7 +24,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **LLM-01**: App post-processes transcribed text using MLX Swift with Qwen3-1.7B model
 - [x] **LLM-02**: Post-processing formats text according to TC conventions (no spaces between characters)
-- [x] **LLM-03**: App downloads LLM model on first launch with progress indicator
+- [ ] **LLM-03**: App downloads LLM model on first launch with progress indicator
 
 ### Text Insertion
 
@@ -37,7 +37,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **HOTKEY-01**: User can activate voice input via toggle mode (default: Shift+Option+Space)
 - [x] **HOTKEY-02**: User can activate voice input via push-to-talk (default: Option+Space)
-- [x] **HOTKEY-03**: User can configure hotkey bindings in settings
+- [ ] **HOTKEY-03**: User can configure hotkey bindings in settings
 - [x] **HOTKEY-04**: Hotkeys work globally across all applications
 - [x] **HOTKEY-05**: Hotkey events are suppressed (not passed to active app) to prevent unwanted input
 
@@ -46,7 +46,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **UI-01**: App runs as menu bar app (LSUIElement) with no dock icon
 - [x] **UI-02**: Menu bar icon shows status states (idle, recording, processing, error)
 - [x] **UI-03**: App displays SwiftUI settings window accessible from menu bar
-- [x] **UI-04**: Menu bar shows model loading progress on first launch
+- [ ] **UI-04**: Menu bar shows model loading progress on first launch
 
 ### System Integration
 
@@ -57,7 +57,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Debug & Polish
 
 - [x] **DEBUG-01**: User can enable debug mode in settings
-- [x] **DEBUG-02**: Debug mode saves recordings as WAV files with JSON metadata
+- [ ] **DEBUG-02**: Debug mode saves recordings as WAV files with JSON metadata
 - [x] **DEBUG-03**: User can enable confirm-before-insert mode in settings
 - [x] **DEBUG-04**: Confirm mode shows transcribed text for review before insertion
 

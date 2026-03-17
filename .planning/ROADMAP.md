@@ -10,6 +10,7 @@ Four phases that build from a working macOS app shell to a fully integrated voic
 - [x] **Phase 2: Audio Capture and Transcription** - 16kHz audio pipeline and whisper.cpp hardware-accelerated transcription bridge (completed 2026-03-16)
 - [x] **Phase 3: LLM Post-Processing and Text Insertion** - Qwen3-1.7B formatting and dual-path text insertion at cursor (completed 2026-03-17)
 - [x] **Phase 4: Pipeline Integration and Polish** - RecordingCoordinator wiring, menu bar status states, debug mode, and distribution readiness (completed 2026-03-17)
+- [ ] **Phase 5: Pipeline Wiring Fixes** - Gap closure: hotkey modifier sync, LLM progress display, confirm-mode debug archiving, state reset
 
 ## Phase Details
 
@@ -84,6 +85,18 @@ Plans:
 - [ ] 04-01-PLAN.md — AppState extensions, DebugArchiver, settings toggles, unit tests
 - [ ] 04-02-PLAN.md — Full pipeline wiring, dynamic menu bar icon, latency display, confirm-before-insert
 
+### Phase 5: Pipeline Wiring Fixes
+**Goal**: Close all integration gaps found in milestone audit — hotkey modifiers applied at startup, LLM download progress visible, debug archiving works in confirm mode, confirm-mode state reset on sheet dismiss.
+**Depends on**: Phase 4
+**Requirements**: HOTKEY-03, LLM-03, UI-04, DEBUG-02
+**Gap Closure:** Closes gaps from v1.0 audit
+**Success Criteria** (what must be TRUE):
+  1. `HotkeyMonitor.loadSettings(from:)` called at startup — both keyCode AND modifiers applied from SettingsStore
+  2. LLM download progress displayed in StatusItemView alongside Whisper progress; cleared to nil after load completes
+  3. DebugArchiver.save() called in both normal and confirm-before-insert paths
+  4. recordingState reset to .idle when confirm sheet dismisses (including MenuBarExtra focus loss)
+**Plans**: TBD
+
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
@@ -92,3 +105,4 @@ Plans:
 | 2. Audio Capture and Transcription | 5/5 | Complete   | 2026-03-16 |
 | 3. LLM Post-Processing and Text Insertion | 3/3 | Complete   | 2026-03-17 |
 | 4. Pipeline Integration and Polish | 2/2 | Complete   | 2026-03-17 |
+| 5. Pipeline Wiring Fixes | 0/TBD | Not started | - |
