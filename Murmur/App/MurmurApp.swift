@@ -48,8 +48,7 @@ struct MurmurApp: App {
                     }
                 }
         } label: {
-            Image(systemName: appState.menuBarIconName)
-                .symbolRenderingMode(.hierarchical)
+            MenuBarLabel(state: appState)
         }
         .menuBarExtraStyle(.window)
 
@@ -253,5 +252,31 @@ struct MurmurApp: App {
             appState.lastError = error.localizedDescription
             appState.recordingState = .idle
         }
+    }
+}
+
+// MARK: - Menu Bar Label
+
+private struct MenuBarLabel: View {
+    let state: AppState
+
+    var body: some View {
+        if state.recordingState == .idle && state.lastError == nil {
+            // Custom icon for idle state
+            Image(nsImage: menuBarImage)
+        } else {
+            Image(systemName: state.menuBarIconName)
+                .symbolRenderingMode(.hierarchical)
+        }
+    }
+
+    private var menuBarImage: NSImage {
+        guard let url = Bundle.module.url(forResource: "MenuBarIcon", withExtension: "png"),
+              let img = NSImage(contentsOf: url) else {
+            return NSImage(systemSymbolName: "mic", accessibilityDescription: nil)!
+        }
+        img.isTemplate = true
+        img.size = NSSize(width: 18, height: 18)
+        return img
     }
 }

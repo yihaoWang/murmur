@@ -76,6 +76,7 @@ enum OverlayState {
 
 private struct OverlayView: View {
     let state: OverlayState
+    @State private var blinkVisible = true
 
     var body: some View {
         ZStack {
@@ -86,10 +87,16 @@ private struct OverlayView: View {
 
             Image(systemName: iconName)
                 .font(.system(size: 24, weight: .medium))
-                .foregroundStyle(iconColor)
-                .symbolEffect(.pulse, isActive: state == .recording)
+                .foregroundStyle(state == .recording && !blinkVisible ? .red.opacity(0.3) : iconColor)
         }
         .frame(width: 64, height: 64)
+        .onAppear {
+            if state == .recording {
+                withAnimation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
+                    blinkVisible = false
+                }
+            }
+        }
     }
 
     private var iconName: String {
