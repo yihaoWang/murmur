@@ -24,7 +24,15 @@ jobs:
       - name: Build app and DMG
         run: bash scripts/build-app.sh
 
+      - name: Upload DMG artifact
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Murmur.dmg
+          path: .build/Murmur.dmg
+
       - name: Upload DMG to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           files: .build/Murmur.dmg
