@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-00-PLAN.md
-last_updated: "2026-03-17T00:07:13.826Z"
+stopped_at: Completed 03-02-PLAN.md
+last_updated: "2026-03-17T00:07:24.077Z"
 last_activity: 2026-03-17 — Completed plan 03-01 (PostProcessingEngine actor)
 progress:
   total_phases: 4
@@ -91,6 +91,8 @@ Recent decisions affecting current work:
 - [Phase 03-01]: Qwen3 thinking token stripping via regex <think>[\\s\\S]*?</think> applied post-respond()
 - [Phase 03-llm-post-processing-and-text-insertion]: mlx-swift-lm product name is MLXLLM not LLM (research doc had wrong product name); corrected in Package.swift
 - [Phase 03-llm-post-processing-and-text-insertion]: ChatSession(model) used directly (not model.perform); ChatSession manages its own thread safety via SerialAccessContainer
+- [Phase 03-llm-post-processing-and-text-insertion]: snapshotPasteboard/restorePasteboard are internal (not private) for direct XCTest access without protocol indirection
+- [Phase 03-llm-post-processing-and-text-insertion]: TransientType marker documented as best-effort: not all clipboard managers honor it (known macOS ecosystem constraint)
 
 ### Pending Todos
 
@@ -104,6 +106,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-17T00:07:06.117Z
-Stopped at: Completed 03-00-PLAN.md
+Last session: 2026-03-17T00:07:24.074Z
+Stopped at: Completed 03-02-PLAN.md
 Resume file: None
