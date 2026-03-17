@@ -8,6 +8,8 @@ import ApplicationServices
     var microphoneStatus: PermissionStatus = .unknown
     var modelDownloadProgress: Double? = nil
     var isWhisperModelReady: Bool = false
+    var isLLMModelReady: Bool = false
+    var llmDownloadProgress: Double? = nil
     var isFirstLaunch: Bool {
         !UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
     }

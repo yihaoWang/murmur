@@ -20,7 +20,7 @@ let package = Package(
             dependencies: [
                 .product(name: "KeyboardShortcuts", package: "KeyboardShortcuts"),
                 .product(name: "SwiftWhisper", package: "SwiftWhisper"),
-                .product(name: "LLM", package: "mlx-swift-lm"),
+                .product(name: "MLXLLM", package: "mlx-swift-lm"),
                 .product(name: "MLXLMCommon", package: "mlx-swift-lm")
             ],
             path: "Typeness",
@@ -46,7 +46,7 @@ let package = Package(
             dependencies: [
                 "Typeness",
                 .product(name: "SwiftWhisper", package: "SwiftWhisper"),
-                .product(name: "LLM", package: "mlx-swift-lm"),
+                .product(name: "MLXLLM", package: "mlx-swift-lm"),
                 .product(name: "MLXLMCommon", package: "mlx-swift-lm")
             ],
             path: "Tests/TypenessTests"
