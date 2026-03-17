@@ -9,7 +9,7 @@ Four phases that build from a working macOS app shell to a fully integrated voic
 - [x] **Phase 1: Foundation** - Menu bar app shell, settings store, model manager, permissions onboarding, and reliable global hotkeys (completed 2026-03-16)
 - [x] **Phase 2: Audio Capture and Transcription** - 16kHz audio pipeline and whisper.cpp hardware-accelerated transcription bridge (completed 2026-03-16)
 - [x] **Phase 3: LLM Post-Processing and Text Insertion** - Qwen3-1.7B formatting and dual-path text insertion at cursor (completed 2026-03-17)
-- [ ] **Phase 4: Pipeline Integration and Polish** - RecordingCoordinator wiring, menu bar status states, debug mode, and distribution readiness
+- [x] **Phase 4: Pipeline Integration and Polish** - RecordingCoordinator wiring, menu bar status states, debug mode, and distribution readiness (completed 2026-03-17)
 
 ## Phase Details
 
@@ -78,7 +78,7 @@ Plans:
   3. Transcription latency is displayed in the menu bar or status area after each transcription
   4. User can enable debug mode in settings; when enabled, each transcription session saves a WAV file and JSON metadata to disk
   5. User can enable confirm-before-insert in settings; when enabled, the transcribed text is shown for review and must be confirmed before insertion
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 Plans:
 - [ ] 04-01-PLAN.md — AppState extensions, DebugArchiver, settings toggles, unit tests
@@ -91,4 +91,4 @@ Plans:
 | 1. Foundation | 4/4 | Complete   | 2026-03-16 |
 | 2. Audio Capture and Transcription | 5/5 | Complete   | 2026-03-16 |
 | 3. LLM Post-Processing and Text Insertion | 3/3 | Complete   | 2026-03-17 |
-| 4. Pipeline Integration and Polish | 1/2 | In Progress|  |
+| 4. Pipeline Integration and Polish | 2/2 | Complete   | 2026-03-17 |

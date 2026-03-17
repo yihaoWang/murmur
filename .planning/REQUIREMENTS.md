@@ -57,9 +57,9 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Debug & Polish
 
 - [x] **DEBUG-01**: User can enable debug mode in settings
-- [ ] **DEBUG-02**: Debug mode saves recordings as WAV files with JSON metadata
+- [x] **DEBUG-02**: Debug mode saves recordings as WAV files with JSON metadata
 - [x] **DEBUG-03**: User can enable confirm-before-insert mode in settings
-- [ ] **DEBUG-04**: Confirm mode shows transcribed text for review before insertion
+- [x] **DEBUG-04**: Confirm mode shows transcribed text for review before insertion
 
 ## v2 Requirements
 
@@ -114,9 +114,9 @@ Deferred to future release. Tracked but not in current roadmap.
 | UI-02 | Phase 4 | Complete |
 | STT-04 | Phase 4 | Complete |
 | DEBUG-01 | Phase 4 | Complete |
-| DEBUG-02 | Phase 4 | Pending |
+| DEBUG-02 | Phase 4 | Complete |
 | DEBUG-03 | Phase 4 | Complete |
-| DEBUG-04 | Phase 4 | Pending |
+| DEBUG-04 | Phase 4 | Complete |
 
 **Coverage:**
 - v1 requirements: 30 total
