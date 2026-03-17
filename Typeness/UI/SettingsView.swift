@@ -57,6 +57,11 @@ struct GeneralSettingsView: View {
                         .foregroundStyle(appState.microphoneStatus == .granted ? .green : .red)
                 }
             }
+
+            Section("Debug") {
+                Toggle("Debug Mode (save recordings)", isOn: $settingsStore.debugModeEnabled)
+                Toggle("Confirm Before Insert", isOn: $settingsStore.confirmBeforeInsert)
+            }
         }
         .formStyle(.grouped)
         .padding()
