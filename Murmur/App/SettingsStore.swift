@@ -9,4 +9,5 @@ final class SettingsStore: ObservableObject {
     @AppStorage("debugModeEnabled") var debugModeEnabled: Bool = false
     @AppStorage("confirmBeforeInsert") var confirmBeforeInsert: Bool = false
     @AppStorage("hasShownOnboarding") var hasShownOnboarding: Bool = false
+    @AppStorage("selectedWhisperModel") var selectedWhisperModel: String = WhisperModel.medium.rawValue
 }

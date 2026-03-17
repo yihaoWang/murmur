@@ -30,6 +30,7 @@ let package = Package(
                 "App/SettingsStore.swift",
                 "Core/AppState.swift",
                 "Core/ModelManager.swift",
+                "Core/WhisperModel.swift",
                 "Core/AudioCaptureEngine.swift",
                 "Core/TranscriptionEngine.swift",
                 "Core/VAD.swift",
@@ -44,6 +45,10 @@ let package = Package(
                 "UI/OnboardingView.swift",
                 "UI/HotkeyRecorderView.swift",
                 "UI/RecordingOverlayWindow.swift"
+            ],
+            resources: [
+                .process("Assets.xcassets"),
+                .copy("Resources/AppIcon.png")
             ]
         ),
         .testTarget(

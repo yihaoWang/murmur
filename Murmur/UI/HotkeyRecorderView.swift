@@ -40,5 +40,6 @@ struct HotkeyRecorderRow: View {
             settingsStore.pttHotkeyKeyCode = keyCode
             settingsStore.pttHotkeyModifiers = modifiersRaw
         }
+        NotificationCenter.default.post(name: .hotkeySettingsChanged, object: nil)
     }
 }

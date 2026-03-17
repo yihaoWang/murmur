@@ -24,6 +24,7 @@ import ApplicationServices
     var pendingTranscription: String? = nil
     var pendingDebugContext: PendingDebugContext? = nil
     var lastError: String? = nil
+    var isModelSwitching: Bool = false
 
     struct PendingDebugContext {
         let frames: [Float]

@@ -6,6 +6,7 @@ extension Notification.Name {
     static let hotkeyToggleFired = Notification.Name("hotkeyToggleFired")
     static let hotkeyPTTDown = Notification.Name("hotkeyPTTDown")
     static let hotkeyPTTUp = Notification.Name("hotkeyPTTUp")
+    static let hotkeySettingsChanged = Notification.Name("hotkeySettingsChanged")
 }
 
 enum HotkeyError: Error {

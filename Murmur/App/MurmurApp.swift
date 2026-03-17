@@ -13,6 +13,10 @@ struct MurmurApp: App {
     @State private var postProcessingEngine = PostProcessingEngine()
     private let textInsertionEngine = TextInsertionEngine()
 
+    private var selectedModel: WhisperModel {
+        WhisperModel(rawValue: settingsStore.selectedWhisperModel) ?? .medium
+    }
+
     var body: some Scene {
         MenuBarExtra {
             StatusItemView(appState: appState, modelManager: modelManager)
@@ -20,13 +24,14 @@ struct MurmurApp: App {
                     setupApp()
                     let manager = ModelManager(appState: appState)
                     modelManager = manager
-                    await manager.checkAndUpdateModelStatus()
-                    if await manager.isWhisperModelDownloaded() {
-                        await transcriptionEngine.load(modelURL: await manager.whisperModelPath())
+                    let model = selectedModel
+                    await manager.checkAndUpdateModelStatus(for: model)
+                    if await manager.isWhisperModelDownloaded(model) {
+                        await transcriptionEngine.load(modelURL: await manager.whisperModelPath(for: model))
                     }
                     Task {
-                        try? await manager.downloadWhisperModelIfNeeded()
-                        await transcriptionEngine.load(modelURL: await manager.whisperModelPath())
+                        try? await manager.downloadWhisperModel(model)
+                        await transcriptionEngine.load(modelURL: await manager.whisperModelPath(for: model))
                     }
                     Task {
                         do {
@@ -49,12 +54,35 @@ struct MurmurApp: App {
         .menuBarExtraStyle(.window)
 
         Settings {
-            SettingsView(appState: appState, settingsStore: settingsStore)
+            SettingsView(
+                appState: appState,
+                settingsStore: settingsStore,
+                modelManager: modelManager,
+                onModelChange: { model in
+                    Task { await switchModel(to: model) }
+                }
+            )
         }
+    }
+
+    private func switchModel(to model: WhisperModel) async {
+        guard let manager = modelManager else { return }
+        appState.isModelSwitching = true
+        AppLogger.log("switching to model: \(model.displayName)")
+        await transcriptionEngine.load(modelURL: await manager.whisperModelPath(for: model))
+        appState.isModelSwitching = false
+        AppLogger.log("model switched to: \(model.displayName)")
     }
 
     private func setupApp() {
         AppLogger.log("setupApp started")
+
+        // Set app icon from bundle resources
+        if let iconURL = Bundle.module.url(forResource: "AppIcon", withExtension: "png"),
+           let iconImage = NSImage(contentsOf: iconURL) {
+            NSApplication.shared.applicationIconImage = iconImage
+        }
+
         appState.checkAccessibilityOnStartup()
         AppLogger.log("accessibility=\(appState.accessibilityStatus)")
 
@@ -107,6 +135,12 @@ struct MurmurApp: App {
         ) { _ in
             Task { await handleRecordingStop() }
         }
+        NotificationCenter.default.addObserver(
+            forName: .hotkeySettingsChanged, object: nil, queue: .main
+        ) { _ in
+            hotkeyMonitor.loadSettings(from: settingsStore)
+            AppLogger.log("hotkey settings reloaded")
+        }
     }
 
     private func handleToggle() async {
@@ -121,6 +155,10 @@ struct MurmurApp: App {
         AppLogger.log("handleRecordingStart")
         guard appState.recordingState == .idle else {
             AppLogger.log("not idle, ignoring start")
+            return
+        }
+        guard !appState.isModelSwitching else {
+            AppLogger.log("model switching in progress, ignoring start")
             return
         }
         // Set state synchronously before any await to prevent re-entry

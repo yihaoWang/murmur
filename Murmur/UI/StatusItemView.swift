@@ -26,8 +26,11 @@ struct StatusItemView: View {
                     .foregroundStyle(.secondary)
                 Button("Download") {
                     guard let manager = modelManager else { return }
+                    let model = WhisperModel(rawValue: UserDefaults.standard.string(forKey: "selectedWhisperModel") ?? "") ?? .medium
                     Task {
-                        try? await manager.downloadWhisperModelIfNeeded()
+                        appState.isModelSwitching = true
+                        try? await manager.downloadWhisperModel(model)
+                        appState.isModelSwitching = false
                     }
                 }
                 .buttonStyle(.borderedProminent)

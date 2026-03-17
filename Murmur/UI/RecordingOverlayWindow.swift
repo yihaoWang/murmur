@@ -5,12 +5,14 @@ import SwiftUI
 final class RecordingOverlayWindow {
     private var window: NSWindow?
     private var hideTimer: Timer?
+    private var showGeneration: Int = 0
 
     static let shared = RecordingOverlayWindow()
 
     func show(state: OverlayState) {
         hideTimer?.invalidate()
         hideTimer = nil
+        showGeneration += 1
 
         let hostingView = NSHostingView(rootView: OverlayView(state: state))
         hostingView.frame = NSRect(x: 0, y: 0, width: 64, height: 64)
@@ -32,6 +34,7 @@ final class RecordingOverlayWindow {
         }
 
         window?.contentView = hostingView
+        window?.alphaValue = 1
         positionAtBottomCenter()
         window?.orderFrontRegardless()
 
@@ -45,12 +48,14 @@ final class RecordingOverlayWindow {
     func hide() {
         hideTimer?.invalidate()
         hideTimer = nil
+        let gen = showGeneration
         NSAnimationContext.runAnimationGroup { ctx in
             ctx.duration = 0.3
             window?.animator().alphaValue = 0
         } completionHandler: { [weak self] in
-            self?.window?.orderOut(nil)
-            self?.window?.alphaValue = 1
+            guard let self, self.showGeneration == gen else { return }
+            self.window?.orderOut(nil)
+            self.window?.alphaValue = 1
         }
     }
 

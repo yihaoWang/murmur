@@ -14,20 +14,20 @@ actor ModelManager {
         try FileManager.default.createDirectory(at: modelsDirectory, withIntermediateDirectories: true)
     }
 
-    func whisperModelPath() -> URL {
-        modelsDirectory.appendingPathComponent("ggml-medium.bin")
+    func whisperModelPath(for model: WhisperModel) -> URL {
+        modelsDirectory.appendingPathComponent(model.fileName)
     }
 
     func llmModelDirectory() -> URL {
         modelsDirectory.appendingPathComponent("qwen3-1.7b", isDirectory: true)
     }
 
-    func isWhisperModelDownloaded() -> Bool {
-        FileManager.default.fileExists(atPath: whisperModelPath().path)
+    func isWhisperModelDownloaded(_ model: WhisperModel) -> Bool {
+        FileManager.default.fileExists(atPath: whisperModelPath(for: model).path)
     }
 
-    func checkAndUpdateModelStatus() async {
-        if isWhisperModelDownloaded() {
+    func checkAndUpdateModelStatus(for model: WhisperModel) async {
+        if isWhisperModelDownloaded(model) {
             await MainActor.run {
                 appState.isWhisperModelReady = true
             }
@@ -46,15 +46,14 @@ actor ModelManager {
         }
     }
 
-    func downloadWhisperModelIfNeeded() async throws {
-        guard !isWhisperModelDownloaded() else {
+    func downloadWhisperModel(_ model: WhisperModel) async throws {
+        guard !isWhisperModelDownloaded(model) else {
             await MainActor.run { appState.isWhisperModelReady = true }
             return
         }
         try ensureModelsDirectory()
 
-        let remoteURL = URL(string: "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium.bin")!
-        let destination = whisperModelPath()
+        let destination = whisperModelPath(for: model)
 
         let appStateRef = appState
         let delegate = DownloadProgressDelegate { progress in
@@ -64,12 +63,19 @@ actor ModelManager {
         }
 
         let session = URLSession(configuration: .default, delegate: delegate, delegateQueue: nil)
-        let (tempURL, _) = try await session.download(from: remoteURL)
+        let (tempURL, _) = try await session.download(from: model.downloadURL)
         try FileManager.default.moveItem(at: tempURL, to: destination)
 
         await MainActor.run {
-            appStateRef.modelDownloadProgress = nil  // Download complete
+            appStateRef.modelDownloadProgress = nil
             appStateRef.isWhisperModelReady = true
+        }
+    }
+
+    func deleteWhisperModel(_ model: WhisperModel) throws {
+        let path = whisperModelPath(for: model)
+        if FileManager.default.fileExists(atPath: path.path) {
+            try FileManager.default.removeItem(at: path)
         }
     }
 }
