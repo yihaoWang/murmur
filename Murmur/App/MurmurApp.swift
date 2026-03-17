@@ -276,7 +276,7 @@ private struct MenuBarLabel: View {
             return NSImage(systemSymbolName: "mic", accessibilityDescription: nil)!
         }
         img.isTemplate = true
-        img.size = NSSize(width: 18, height: 18)
+        img.size = NSSize(width: 24, height: 24)
         return img
     }
 }

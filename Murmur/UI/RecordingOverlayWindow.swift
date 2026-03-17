@@ -83,10 +83,10 @@ private struct OverlayView: View {
             Circle()
                 .fill(.ultraThinMaterial)
                 .frame(width: 56, height: 56)
-                .shadow(color: .black.opacity(0.2), radius: 8, y: 2)
+                .shadow(color: .clear, radius: 0)
 
             Image(systemName: iconName)
-                .font(.system(size: 24, weight: .medium))
+                .font(.system(size: 18, weight: .medium))
                 .foregroundStyle(state == .recording && !blinkVisible ? .red.opacity(0.3) : iconColor)
         }
         .frame(width: 64, height: 64)
