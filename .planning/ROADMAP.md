@@ -10,7 +10,7 @@ Four phases that build from a working macOS app shell to a fully integrated voic
 - [x] **Phase 2: Audio Capture and Transcription** - 16kHz audio pipeline and whisper.cpp hardware-accelerated transcription bridge (completed 2026-03-16)
 - [x] **Phase 3: LLM Post-Processing and Text Insertion** - Qwen3-1.7B formatting and dual-path text insertion at cursor (completed 2026-03-17)
 - [x] **Phase 4: Pipeline Integration and Polish** - RecordingCoordinator wiring, menu bar status states, debug mode, and distribution readiness (completed 2026-03-17)
-- [ ] **Phase 5: Pipeline Wiring Fixes** - Gap closure: hotkey modifier sync, LLM progress display, confirm-mode debug archiving, state reset
+- [x] **Phase 5: Pipeline Wiring Fixes** - Gap closure: hotkey modifier sync, LLM progress display, confirm-mode debug archiving, state reset
 
 ## Phase Details
 
@@ -95,10 +95,10 @@ Plans:
   2. LLM download progress displayed in StatusItemView alongside Whisper progress; cleared to nil after load completes
   3. DebugArchiver.save() called in both normal and confirm-before-insert paths
   4. recordingState reset to .idle when confirm sheet dismisses (including MenuBarExtra focus loss)
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
-- [ ] 05-01-PLAN.md — Fix hotkey modifier sync, LLM progress display, confirm-mode state reset, debug archiving in confirm path, dual hotkey cleanup
+- [x] 05-01-PLAN.md — Fix hotkey modifier sync, LLM progress display, confirm-mode state reset, debug archiving in confirm path, dual hotkey cleanup
 
 ## Progress
 
@@ -108,4 +108,4 @@ Plans:
 | 2. Audio Capture and Transcription | 5/5 | Complete   | 2026-03-16 |
 | 3. LLM Post-Processing and Text Insertion | 3/3 | Complete   | 2026-03-17 |
 | 4. Pipeline Integration and Polish | 2/2 | Complete   | 2026-03-17 |
-| 5. Pipeline Wiring Fixes | 0/1 | Not started | - |
+| 5. Pipeline Wiring Fixes | 1/1 | Complete | 2026-03-17 |
