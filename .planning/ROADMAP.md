@@ -8,7 +8,7 @@ Four phases that build from a working macOS app shell to a fully integrated voic
 
 - [x] **Phase 1: Foundation** - Menu bar app shell, settings store, model manager, permissions onboarding, and reliable global hotkeys (completed 2026-03-16)
 - [x] **Phase 2: Audio Capture and Transcription** - 16kHz audio pipeline and whisper.cpp hardware-accelerated transcription bridge (completed 2026-03-16)
-- [ ] **Phase 3: LLM Post-Processing and Text Insertion** - Qwen3-1.7B formatting and dual-path text insertion at cursor
+- [x] **Phase 3: LLM Post-Processing and Text Insertion** - Qwen3-1.7B formatting and dual-path text insertion at cursor (completed 2026-03-17)
 - [ ] **Phase 4: Pipeline Integration and Polish** - RecordingCoordinator wiring, menu bar status states, debug mode, and distribution readiness
 
 ## Phase Details
@@ -61,7 +61,7 @@ Plans:
   3. Text is inserted at the cursor position in native apps (TextEdit, Notes, Mail) via Accessibility API
   4. In Electron apps (VS Code, Slack) and Terminal where AX insertion fails, app falls back to clipboard paste and restores original clipboard contents afterward
   5. NSPasteboard TransientType marker is used so clipboard history managers do not capture the temporary paste content
-**Plans:** 2/3 plans executed
+**Plans:** 3/3 plans complete
 
 Plans:
 - [ ] 03-00-PLAN.md — Wave 0: mlx-swift-lm SPM dependency, test stubs, placeholder source files
@@ -86,5 +86,5 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Foundation | 4/4 | Complete   | 2026-03-16 |
 | 2. Audio Capture and Transcription | 5/5 | Complete   | 2026-03-16 |
-| 3. LLM Post-Processing and Text Insertion | 2/3 | In Progress|  |
+| 3. LLM Post-Processing and Text Insertion | 3/3 | Complete   | 2026-03-17 |
 | 4. Pipeline Integration and Polish | 0/TBD | Not started | - |
