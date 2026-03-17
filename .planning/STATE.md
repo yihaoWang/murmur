@@ -4,7 +4,7 @@ milestone: v1.0
 milestone_name: MVP
 status: complete
 last_updated: "2026-03-17"
-last_activity: 2026-03-17 — v1.0 milestone shipped
+last_activity: 2026-03-17 - Completed quick task 260317-e52: write README.md
 progress:
   total_phases: 5
   completed_phases: 5
@@ -26,10 +26,16 @@ See: .planning/PROJECT.md (updated 2026-03-17)
 
 Milestone: v1.0 MVP — SHIPPED
 Progress: [██████████] 100%
-Last activity: 2026-03-17 — v1.0 milestone shipped
+Last activity: 2026-03-17 - Completed quick task 260317-e52: write README.md
 
 ## Session Continuity
 
 Last session: 2026-03-17
 Stopped at: v1.0 milestone complete
 Resume file: None
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260317-e52 | write README.md | 2026-03-17 | 3b494fd | [260317-e52-write-readme-md](./quick/260317-e52-write-readme-md/) |
