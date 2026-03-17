@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Completed 02-04-PLAN.md
-last_updated: "2026-03-16T23:51:01.463Z"
-last_activity: 2026-03-16 — Completed plan 02-03
+status: executing
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-17T00:06:54.474Z"
+last_activity: 2026-03-17 — Completed plan 03-01 (PostProcessingEngine actor)
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 9
-  completed_plans: 9
+  total_plans: 12
+  completed_plans: 11
   percent: 100
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-16)
 
 **Core value:** Fast, reliable voice-to-text input that feels native to macOS — press hotkey, speak, text appears at cursor with correct punctuation and formatting.
-**Current focus:** Phase 1 — Foundation
+**Current focus:** Phase 3 — LLM Post-Processing and Text Insertion
 
 ## Current Position
 
-Phase: 2 of 4 (Audio Capture and Transcription)
-Plan: 4 of 4 in current phase (all complete)
-Status: Phase 2 complete
-Last activity: 2026-03-16 — Completed plan 02-03
+Phase: 3 of 4 (LLM Post-Processing and Text Insertion)
+Plan: 1 of TBD in current phase
+Status: In progress
+Last activity: 2026-03-17 — Completed plan 03-01 (PostProcessingEngine actor)
 
 Progress: [██████████] 100%
 
@@ -60,6 +60,7 @@ Progress: [██████████] 100%
 | Phase 02-audio-capture-and-transcription P03 | 5 | 1 tasks | 4 files |
 | Phase 02-audio-capture-and-transcription P03 | 10 | 2 tasks | 4 files |
 | Phase 02-audio-capture-and-transcription P04 | 5 | 2 tasks | 3 files |
+| Phase 03-llm-post-processing-and-text-insertion P00 | 15 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -84,6 +85,9 @@ Recent decisions affecting current work:
 - [Phase 02-01]: targetFormat and maxFrames exposed as internal (not private) to enable XCTest assertions; filled-flag pattern in AVAudioConverter inputBlock prevents double-feed on non-integer sample rate ratios
 - [Phase 02-audio-capture-and-transcription]: Whisper model URL updated to ggerganov/whisper.cpp (ggml-org returns 401)
 - [Phase 02-audio-capture-and-transcription]: STT-01 acceleration: CoreML (ANE) + Accelerate (CPU BLAS) is the actual path; Metal GPU backend unavailable because SwiftWhisper bundles whisper.cpp that predates ggml-metal source files
+- [Phase 03-01]: MLXLLM product name used (not LLM) — actual mlx-swift-lm product is MLXLLM
+- [Phase 03-01]: ChatSession created fresh per format() call for single-turn TC punctuation formatting
+- [Phase 03-01]: Qwen3 thinking token stripping via regex <think>[\\s\\S]*?</think> applied post-respond()
 
 ### Pending Todos
 
@@ -97,6 +101,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-16T23:51:01.461Z
-Stopped at: Completed 02-04-PLAN.md
+Last session: 2026-03-17T00:06:54.019Z
+Stopped at: Completed 03-01-PLAN.md
 Resume file: None

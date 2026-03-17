@@ -22,9 +22,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### LLM Post-Processing
 
-- [ ] **LLM-01**: App post-processes transcribed text using MLX Swift with Qwen3-1.7B model
-- [ ] **LLM-02**: Post-processing formats text according to TC conventions (no spaces between characters)
-- [ ] **LLM-03**: App downloads LLM model on first launch with progress indicator
+- [x] **LLM-01**: App post-processes transcribed text using MLX Swift with Qwen3-1.7B model
+- [x] **LLM-02**: Post-processing formats text according to TC conventions (no spaces between characters)
+- [x] **LLM-03**: App downloads LLM model on first launch with progress indicator
 
 ### Text Insertion
 
@@ -104,9 +104,9 @@ Deferred to future release. Tracked but not in current roadmap.
 | STT-01 | Phase 2 | Complete |
 | STT-02 | Phase 2 | Complete |
 | STT-03 | Phase 2 | Complete |
-| LLM-01 | Phase 3 | Pending |
-| LLM-02 | Phase 3 | Pending |
-| LLM-03 | Phase 3 | Pending |
+| LLM-01 | Phase 3 | Complete |
+| LLM-02 | Phase 3 | Complete |
+| LLM-03 | Phase 3 | Complete |
 | INSERT-01 | Phase 3 | Pending |
 | INSERT-02 | Phase 3 | Pending |
 | INSERT-03 | Phase 3 | Pending |
