@@ -34,6 +34,18 @@ actor ModelManager {
         }
     }
 
+    func downloadAndLoadLLMIfNeeded(appState: AppState, engine: PostProcessingEngine) async throws {
+        try await engine.load { progress in
+            Task { @MainActor in
+                appState.llmDownloadProgress = progress
+            }
+        }
+        await MainActor.run {
+            appState.llmDownloadProgress = nil
+            appState.isLLMModelReady = true
+        }
+    }
+
     func downloadWhisperModelIfNeeded() async throws {
         guard !isWhisperModelDownloaded() else {
             await MainActor.run { appState.isWhisperModelReady = true }
