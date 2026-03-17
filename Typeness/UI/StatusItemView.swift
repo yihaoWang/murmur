@@ -28,6 +28,29 @@ struct StatusItemView: View {
                 .buttonStyle(.borderedProminent)
             }
 
+            switch appState.recordingState {
+            case .idle: EmptyView()
+            case .recording:
+                Label("Recording...", systemImage: "mic.fill")
+                    .foregroundStyle(.red)
+            case .transcribing:
+                Label("Transcribing...", systemImage: "waveform")
+            case .processing:
+                Label("Processing...", systemImage: "ellipsis.circle")
+            }
+
+            if let ms = appState.lastTranscriptionLatencyMs {
+                Text(String(format: "Last: %.0f ms", ms))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            if let error = appState.lastError {
+                Text(error)
+                    .font(.caption)
+                    .foregroundStyle(.red)
+            }
+
             Divider()
 
             Button("Settings...") {
@@ -44,5 +67,22 @@ struct StatusItemView: View {
         }
         .padding()
         .frame(width: 240)
+        .sheet(isPresented: Binding(
+            get: { appState.pendingTranscription != nil },
+            set: { if !$0 { appState.pendingTranscription = nil } }
+        )) {
+            ConfirmInsertView(
+                text: appState.pendingTranscription ?? "",
+                onConfirm: { text in
+                    TextInsertionEngine().insert(text)
+                    appState.pendingTranscription = nil
+                    appState.recordingState = .idle
+                },
+                onCancel: {
+                    appState.pendingTranscription = nil
+                    appState.recordingState = .idle
+                }
+            )
+        }
     }
 }

@@ -9,6 +9,8 @@ struct TypenessApp: App {
     @State private var showOnboarding = false
     @State private var audioEngine = AudioCaptureEngine()
     @State private var transcriptionEngine = TranscriptionEngine()
+    @State private var postProcessingEngine = PostProcessingEngine()
+    private let textInsertionEngine = TextInsertionEngine()
 
     var body: some Scene {
         // Hidden window — MUST be first scene for openSettings() to work in LSUIElement app
@@ -26,6 +28,12 @@ struct TypenessApp: App {
                         try? await manager.downloadWhisperModelIfNeeded()
                         await transcriptionEngine.load(modelURL: await manager.whisperModelPath())
                     }
+                    Task {
+                        try? await postProcessingEngine.load { progress in
+                            appState.llmDownloadProgress = progress
+                        }
+                        appState.isLLMModelReady = true
+                    }
                 }
                 .onAppear {
                     setupApp()
@@ -41,8 +49,11 @@ struct TypenessApp: App {
         .windowResizability(.contentSize)
         .defaultSize(width: 0, height: 0)
 
-        MenuBarExtra("Typeness", systemImage: "mic.fill") {
+        MenuBarExtra {
             StatusItemView(appState: appState, modelManager: modelManager)
+        } label: {
+            Image(systemName: appState.menuBarIconName)
+                .symbolRenderingMode(.hierarchical)
         }
         .menuBarExtraStyle(.window)
 
@@ -118,6 +129,7 @@ struct TypenessApp: App {
     private func handleRecordingStop() async {
         guard appState.recordingState == .recording else { return }
         let frames = await audioEngine.stop()
+        let startTime = Date()
         appState.recordingState = .transcribing
 
         guard VADGate.hasVoiceActivity(samples: frames) else {
@@ -127,13 +139,39 @@ struct TypenessApp: App {
         }
 
         do {
-            let text = try await transcriptionEngine.transcribe(audioFrames: frames)
-            appState.lastTranscription = text
-            print("[Typeness] Transcription: \(text)")
-            // Phase 3 will insert text at cursor; Phase 2 just logs
+            let rawText = try await transcriptionEngine.transcribe(audioFrames: frames)
+            let latencyMs = Date().timeIntervalSince(startTime) * 1000
+            appState.lastTranscriptionLatencyMs = latencyMs
+
+            appState.recordingState = .processing
+            let finalText: String
+            if await postProcessingEngine.isLoaded {
+                finalText = try await postProcessingEngine.format(rawText)
+            } else {
+                finalText = rawText
+            }
+
+            if settingsStore.confirmBeforeInsert {
+                appState.pendingTranscription = finalText
+                appState.lastTranscription = rawText
+                // insertion deferred to ConfirmInsertView callback
+            } else {
+                let path = textInsertionEngine.insert(finalText)
+                appState.lastTranscription = rawText
+                if settingsStore.debugModeEnabled {
+                    try? DebugArchiver.save(
+                        frames: frames,
+                        transcription: rawText,
+                        formattedText: finalText,
+                        latencyMs: latencyMs,
+                        insertionPath: path == .accessibility ? "accessibility" : "clipboardPaste"
+                    )
+                }
+                appState.recordingState = .idle
+            }
         } catch {
-            print("[Typeness] Transcription failed: \(error)")
+            appState.lastError = error.localizedDescription
+            appState.recordingState = .idle
         }
-        appState.recordingState = .idle
     }
 }

@@ -34,8 +34,10 @@ let package = Package(
                 "Core/VAD.swift",
                 "Core/PostProcessingEngine.swift",
                 "Core/TextInsertionEngine.swift",
+                "Core/DebugArchiver.swift",
                 "Input/HotkeyMonitor.swift",
                 "UI/StatusItemView.swift",
+                "UI/ConfirmInsertView.swift",
                 "UI/SettingsView.swift",
                 "UI/OnboardingView.swift",
                 "UI/HotkeyRecorderView.swift"
