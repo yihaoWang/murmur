@@ -14,11 +14,10 @@ struct MurmurApp: App {
     private let textInsertionEngine = TextInsertionEngine()
 
     var body: some Scene {
-        // Hidden window — MUST be first scene for openSettings() to work in LSUIElement app
-        Window("hidden", id: "hidden") {
-            Color.clear
-                .frame(width: 0, height: 0)
+        MenuBarExtra {
+            StatusItemView(appState: appState, modelManager: modelManager)
                 .task {
+                    setupApp()
                     let manager = ModelManager(appState: appState)
                     modelManager = manager
                     await manager.checkAndUpdateModelStatus()
@@ -30,29 +29,19 @@ struct MurmurApp: App {
                         await transcriptionEngine.load(modelURL: await manager.whisperModelPath())
                     }
                     Task {
-                        try? await postProcessingEngine.load { progress in
-                            appState.llmDownloadProgress = progress
+                        do {
+                            AppLogger.log("loading LLM post-processing...")
+                            try await postProcessingEngine.load { progress in
+                                appState.llmDownloadProgress = progress
+                            }
+                            appState.isLLMModelReady = true
+                            AppLogger.log("LLM post-processing ready")
+                        } catch {
+                            AppLogger.log("LLM post-processing unavailable: \(error)")
                         }
-                        appState.isLLMModelReady = true
                         appState.llmDownloadProgress = nil
                     }
                 }
-                .onAppear {
-                    setupApp()
-                }
-                .sheet(isPresented: $showOnboarding) {
-                    OnboardingView(appState: appState) {
-                        showOnboarding = false
-                        settingsStore.hasShownOnboarding = true
-                        startHotkeyMonitor()
-                    }
-                }
-        }
-        .windowResizability(.contentSize)
-        .defaultSize(width: 0, height: 0)
-
-        MenuBarExtra {
-            StatusItemView(appState: appState, modelManager: modelManager)
         } label: {
             Image(systemName: appState.menuBarIconName)
                 .symbolRenderingMode(.hierarchical)
@@ -65,19 +54,31 @@ struct MurmurApp: App {
     }
 
     private func setupApp() {
+        AppLogger.log("setupApp started")
         appState.checkAccessibilityOnStartup()
+        AppLogger.log("accessibility=\(appState.accessibilityStatus)")
 
         // Disable KeyboardShortcuts framework interception — we use CGEventTap instead
         KeyboardShortcuts.disable(.toggleMode)
         KeyboardShortcuts.disable(.pushToTalk)
 
-        if !settingsStore.hasShownOnboarding {
-            showOnboarding = true
-        } else if appState.accessibilityStatus == .granted {
+        if appState.accessibilityStatus == .granted {
             startHotkeyMonitor()
+        } else {
+            AppLogger.log("accessibility not granted — hotkeys disabled, using clipboard-only insertion")
+            // Poll in background so hotkeys activate if user grants permission later
+            Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { timer in
+                if AXIsProcessTrusted() {
+                    timer.invalidate()
+                    appState.accessibilityStatus = .granted
+                    startHotkeyMonitor()
+                    AppLogger.log("accessibility granted, hotkey monitor started")
+                }
+            }
         }
 
         setupHotkeyObservers()
+        AppLogger.log("setupApp done")
     }
 
     private func startHotkeyMonitor() {
@@ -117,7 +118,9 @@ struct MurmurApp: App {
     }
 
     private func handleRecordingStart() async {
+        AppLogger.log("handleRecordingStart")
         guard await audioEngine.checkMicrophonePermission() else {
+            AppLogger.log("microphone permission denied")
             appState.microphoneStatus = .denied
             return
         }
@@ -125,32 +128,44 @@ struct MurmurApp: App {
         do {
             try await audioEngine.start()
             appState.recordingState = .recording
+            RecordingOverlayWindow.shared.show(state: .recording)
+            AppLogger.log("recording started")
         } catch {
-            print("[Murmur] Audio engine start failed: \(error)")
+            AppLogger.log("audio engine start failed: \(error)")
             appState.recordingState = .idle
         }
     }
 
     private func handleRecordingStop() async {
-        guard appState.recordingState == .recording else { return }
+        AppLogger.log("handleRecordingStop")
+        guard appState.recordingState == .recording else {
+            AppLogger.log("not recording, ignoring stop")
+            return
+        }
         let frames = await audioEngine.stop()
         let startTime = Date()
         appState.recordingState = .transcribing
+        RecordingOverlayWindow.shared.show(state: .transcribing)
+        AppLogger.log("audio stopped, frames=\(frames.count)")
 
         guard VADGate.hasVoiceActivity(samples: frames) else {
-            print("[Murmur] No voice activity detected, skipping transcription")
+            AppLogger.log("no voice activity, skipping")
+            RecordingOverlayWindow.shared.hide()
             appState.recordingState = .idle
             return
         }
 
         do {
+            AppLogger.log("transcribing...")
             let rawText = try await transcriptionEngine.transcribe(audioFrames: frames)
             let latencyMs = Date().timeIntervalSince(startTime) * 1000
             appState.lastTranscriptionLatencyMs = latencyMs
+            AppLogger.log("transcribed in \(Int(latencyMs))ms: \(rawText.prefix(80))")
 
             appState.recordingState = .processing
             let finalText: String
             if await postProcessingEngine.isLoaded {
+                AppLogger.log("post-processing...")
                 finalText = try await postProcessingEngine.format(rawText)
             } else {
                 finalText = rawText
@@ -167,9 +182,12 @@ struct MurmurApp: App {
                         latencyMs: latencyMs
                     )
                 }
-                // insertion deferred to ConfirmInsertView callback
+                AppLogger.log("pending confirmation")
             } else {
+                AppLogger.log("inserting text...")
                 let path = textInsertionEngine.insert(finalText)
+                AppLogger.log("inserted via \(path)")
+                RecordingOverlayWindow.shared.show(state: .done)
                 appState.lastTranscription = rawText
                 if settingsStore.debugModeEnabled {
                     try? DebugArchiver.save(
@@ -182,7 +200,10 @@ struct MurmurApp: App {
                 }
                 appState.recordingState = .idle
             }
+            AppLogger.log("recording pipeline done")
         } catch {
+            AppLogger.log("pipeline error: \(error)")
+            RecordingOverlayWindow.shared.hide()
             appState.lastError = error.localizedDescription
             appState.recordingState = .idle
         }

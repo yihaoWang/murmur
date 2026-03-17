@@ -1,4 +1,4 @@
-import AVFoundation
+@preconcurrency import AVFoundation
 
 enum AudioError: Error {
     case converterCreationFailed
@@ -44,7 +44,8 @@ actor AudioCaptureEngine {
         let bufferSize = AVAudioFrameCount(inputFormat.sampleRate * 0.1)
         inputNode.installTap(onBus: 0, bufferSize: bufferSize, format: inputFormat) {
             [weak self] buffer, _ in
-            Task { await self?.process(buffer: buffer) }
+            nonisolated(unsafe) let sendableBuffer = buffer
+            Task { await self?.process(buffer: sendableBuffer) }
         }
 
         do {

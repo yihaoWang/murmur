@@ -11,7 +11,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/sindresorhus/KeyboardShortcuts", .upToNextMinor(from: "1.15.0")),
-        .package(url: "https://github.com/exPHAT/SwiftWhisper.git", branch: "master"),
+        .package(path: "LocalPackages/SwiftWhisper"),
         .package(url: "https://github.com/ml-explore/mlx-swift-lm/", exact: "2.30.6")
     ],
     targets: [
@@ -26,6 +26,7 @@ let package = Package(
             path: "Murmur",
             sources: [
                 "App/MurmurApp.swift",
+                "App/ContentView.swift",
                 "App/SettingsStore.swift",
                 "Core/AppState.swift",
                 "Core/ModelManager.swift",
@@ -35,12 +36,14 @@ let package = Package(
                 "Core/PostProcessingEngine.swift",
                 "Core/TextInsertionEngine.swift",
                 "Core/DebugArchiver.swift",
+                "Core/AppLogger.swift",
                 "Input/HotkeyMonitor.swift",
                 "UI/StatusItemView.swift",
                 "UI/ConfirmInsertView.swift",
                 "UI/SettingsView.swift",
                 "UI/OnboardingView.swift",
-                "UI/HotkeyRecorderView.swift"
+                "UI/HotkeyRecorderView.swift",
+                "UI/RecordingOverlayWindow.swift"
             ]
         ),
         .testTarget(

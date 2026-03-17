@@ -3,7 +3,7 @@ import SwiftUI
 
 final class SettingsStore: ObservableObject {
     @AppStorage("toggleHotkeyKeyCode") var toggleHotkeyKeyCode: Int = 49
-    @AppStorage("toggleHotkeyModifiers") var toggleHotkeyModifiers: Int = 786432
+    @AppStorage("toggleHotkeyModifiers") var toggleHotkeyModifiers: Int = 655360
     @AppStorage("pttHotkeyKeyCode") var pttHotkeyKeyCode: Int = 49
     @AppStorage("pttHotkeyModifiers") var pttHotkeyModifiers: Int = 524288
     @AppStorage("debugModeEnabled") var debugModeEnabled: Bool = false

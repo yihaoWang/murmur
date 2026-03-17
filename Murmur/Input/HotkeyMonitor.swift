@@ -69,19 +69,22 @@ final class HotkeyMonitor {
         pttModifiers = CGEventFlags(rawValue: UInt64(store.pttHotkeyModifiers))
     }
 
+    private static let modifierMask: UInt64 =
+        CGEventFlags.maskShift.rawValue |
+        CGEventFlags.maskControl.rawValue |
+        CGEventFlags.maskAlternate.rawValue |
+        CGEventFlags.maskCommand.rawValue
+
+    private func modifiersMatch(flags: CGEventFlags, expected: CGEventFlags) -> Bool {
+        (flags.rawValue & Self.modifierMask) == (expected.rawValue & Self.modifierMask)
+    }
+
     func matchesToggle(keyCode: Int64, flags: CGEventFlags) -> Bool {
-        keyCode == toggleKeyCode &&
-        flags.contains(toggleModifiers) &&
-        !flags.contains(.maskCommand) &&
-        !flags.contains(.maskControl)
+        keyCode == toggleKeyCode && modifiersMatch(flags: flags, expected: toggleModifiers)
     }
 
     func matchesPTT(keyCode: Int64, flags: CGEventFlags) -> Bool {
-        keyCode == pttKeyCode &&
-        flags.contains(pttModifiers) &&
-        !flags.contains(.maskShift) &&
-        !flags.contains(.maskCommand) &&
-        !flags.contains(.maskControl)
+        keyCode == pttKeyCode && modifiersMatch(flags: flags, expected: pttModifiers)
     }
 }
 

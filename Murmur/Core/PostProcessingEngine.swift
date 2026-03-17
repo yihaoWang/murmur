@@ -1,10 +1,12 @@
 import Foundation
+import Metal
 import MLXLLM
 import MLXLMCommon
 
 enum PostProcessingError: Error {
     case notLoaded
     case formatFailed(String)
+    case metalUnavailable
 }
 
 actor PostProcessingEngine {
@@ -13,6 +15,16 @@ actor PostProcessingEngine {
     var isLoaded: Bool { model != nil }
 
     func load(onProgress: @escaping (Double) -> Void) async throws {
+        // Guard: MLX requires Metal GPU + its metallib bundled in the app.
+        // If Metal is unavailable the MLX C++ layer calls abort(), which
+        // cannot be caught in Swift, so we check before touching any MLX API.
+        guard MTLCreateSystemDefaultDevice() != nil,
+              Bundle.main.path(forResource: "default", ofType: "metallib") != nil
+        else {
+            print("[Murmur] Metal default library not available — skipping LLM post-processing")
+            throw PostProcessingError.metalUnavailable
+        }
+
         let config = ModelConfiguration(id: "mlx-community/Qwen3-1.7B-4bit")
         let container = try await LLMModelFactory.shared.loadContainer(
             configuration: config,

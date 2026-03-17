@@ -34,20 +34,58 @@ struct StatusItemView: View {
             }
 
             switch appState.recordingState {
-            case .idle: EmptyView()
+            case .idle:
+                Button {
+                    NotificationCenter.default.post(name: .hotkeyToggleFired, object: nil)
+                } label: {
+                    Label("Start Recording", systemImage: "mic.fill")
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.green)
             case .recording:
-                Label("Recording...", systemImage: "mic.fill")
-                    .foregroundStyle(.red)
+                Button {
+                    NotificationCenter.default.post(name: .hotkeyToggleFired, object: nil)
+                } label: {
+                    Label("Stop Recording", systemImage: "stop.fill")
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
             case .transcribing:
                 Label("Transcribing...", systemImage: "waveform")
             case .processing:
                 Label("Processing...", systemImage: "ellipsis.circle")
             }
 
+            if !appState.lastTranscription.isEmpty {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Last transcription:")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Text(appState.lastTranscription)
+                        .font(.caption)
+                        .lineLimit(3)
+                        .textSelection(.enabled)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+
             if let ms = appState.lastTranscriptionLatencyMs {
-                Text(String(format: "Last: %.0f ms", ms))
+                Text(String(format: "%.0f ms", ms))
                     .font(.caption)
                     .foregroundStyle(.secondary)
+            }
+
+            if appState.accessibilityStatus != .granted {
+                Label("Accessibility required", systemImage: "exclamationmark.triangle")
+                    .font(.caption)
+                    .foregroundStyle(.orange)
+                Button("Grant Permission") {
+                    if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility") {
+                        NSWorkspace.shared.open(url)
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.orange)
             }
 
             if let error = appState.lastError {
@@ -60,10 +98,8 @@ struct StatusItemView: View {
 
             Button("Settings...") {
                 NSApp.setActivationPolicy(.regular)
+                NSApp.activate(ignoringOtherApps: true)
                 openSettings()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    NSApp.setActivationPolicy(.accessory)
-                }
             }
 
             Button("Quit Murmur") {

@@ -2,11 +2,13 @@ import Foundation
 import AppKit
 import ApplicationServices
 import CoreGraphics
+import UserNotifications
 
 /// Enum describing which path was used to insert text.
 enum InsertionPath {
     case accessibility
     case clipboardPaste
+    case clipboardOnly
 }
 
 /// Inserts formatted text at the cursor in any macOS application.
@@ -14,13 +16,9 @@ enum InsertionPath {
 /// Primary path: AXUIElement `kAXSelectedTextAttribute` — directly sets text at cursor
 /// without touching the clipboard.
 ///
-/// Fallback path: Clipboard paste — writes text to NSPasteboard with a TransientType
-/// marker and synthesizes Cmd+V. Original clipboard is restored after 150ms.
+/// Fallback path: Clipboard paste — writes text to NSPasteboard and synthesizes Cmd+V.
 ///
-/// Known limitation: NSPasteboard `org.nspasteboard.TransientType` is best-effort.
-/// Not all clipboard managers honor it (e.g., some third-party clipboard history tools
-/// may capture the transient content anyway). This is a macOS ecosystem constraint,
-/// not a bug in this implementation.
+/// Last resort: Clipboard only — text is left in clipboard for manual Cmd+V.
 struct TextInsertionEngine {
 
     // MARK: - Public API
@@ -30,11 +28,34 @@ struct TextInsertionEngine {
     /// - Returns: The `InsertionPath` that was actually used.
     @discardableResult
     func insert(_ text: String) -> InsertionPath {
-        if tryAccessibilityInsert(text) {
+        let hasAccessibility = AXIsProcessTrusted()
+
+        if hasAccessibility && tryAccessibilityInsert(text) {
+            AppLogger.log("text inserted via accessibility API")
             return .accessibility
         }
-        clipboardPasteInsert(text)
-        return .clipboardPaste
+
+        // Write text to clipboard
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(text, forType: .string)
+
+        if hasAccessibility {
+            // Can simulate Cmd+V
+            let snapshot = snapshotPasteboard(pasteboard)
+            simulatePaste()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.restorePasteboard(pasteboard, from: snapshot)
+            }
+            AppLogger.log("text inserted via clipboard paste")
+            return .clipboardPaste
+        } else {
+            // No accessibility — leave text in clipboard, don't restore.
+            // User can Cmd+V manually.
+            AppLogger.log("text copied to clipboard (no accessibility — use Cmd+V to paste)")
+            showNotification(text: text)
+            return .clipboardOnly
+        }
     }
 
     // MARK: - AX Primary Path
@@ -58,17 +79,9 @@ struct TextInsertionEngine {
         return result == .success
     }
 
-    // MARK: - Clipboard Paste Fallback
+    // MARK: - Clipboard Paste
 
-    private func clipboardPasteInsert(_ text: String) {
-        let pasteboard = NSPasteboard.general
-        let snapshot = snapshotPasteboard(pasteboard)
-
-        // Write text with TransientType marker so clipboard managers ignore it.
-        pasteboard.clearContents()
-        pasteboard.setString(text, forType: .string)
-        pasteboard.setData(Data(), forType: NSPasteboard.PasteboardType("org.nspasteboard.TransientType"))
-
+    private func simulatePaste() {
         // Synthesize Cmd+V (virtual key 9 = 'v').
         if let keyDown = CGEvent(keyboardEventSource: nil, virtualKey: 9, keyDown: true) {
             keyDown.flags = .maskCommand
@@ -78,16 +91,21 @@ struct TextInsertionEngine {
             keyUp.flags = .maskCommand
             keyUp.post(tap: .cghidEventTap)
         }
+    }
 
-        // Restore the original clipboard contents after paste has time to complete.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-            self.restorePasteboard(pasteboard, from: snapshot)
-        }
+    // MARK: - Notification
+
+    private func showNotification(text: String) {
+        let content = UNMutableNotificationContent()
+        content.title = "Murmur"
+        content.body = "已複製到剪貼簿：\(text.prefix(100))"
+        content.sound = .default
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+        UNUserNotificationCenter.current().add(request)
     }
 
     // MARK: - Clipboard Snapshot / Restore
 
-    /// Captures all type/data pairs from `pb`.
     func snapshotPasteboard(_ pb: NSPasteboard) -> [(NSPasteboard.PasteboardType, Data)] {
         var result: [(NSPasteboard.PasteboardType, Data)] = []
         for item in pb.pasteboardItems ?? [] {
@@ -100,7 +118,6 @@ struct TextInsertionEngine {
         return result
     }
 
-    /// Restores `pb` to the state captured by `snapshotPasteboard`.
     func restorePasteboard(_ pb: NSPasteboard, from snapshot: [(NSPasteboard.PasteboardType, Data)]) {
         pb.clearContents()
         if snapshot.isEmpty { return }

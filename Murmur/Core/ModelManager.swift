@@ -15,7 +15,7 @@ actor ModelManager {
     }
 
     func whisperModelPath() -> URL {
-        modelsDirectory.appendingPathComponent("ggml-large-v3-turbo.bin")
+        modelsDirectory.appendingPathComponent("ggml-medium.bin")
     }
 
     func llmModelDirectory() -> URL {
@@ -53,7 +53,7 @@ actor ModelManager {
         }
         try ensureModelsDirectory()
 
-        let remoteURL = URL(string: "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo.bin")!
+        let remoteURL = URL(string: "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium.bin")!
         let destination = whisperModelPath()
 
         let appStateRef = appState

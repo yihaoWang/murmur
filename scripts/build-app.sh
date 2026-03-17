@@ -1,0 +1,39 @@
+#!/bin/bash
+set -euo pipefail
+
+PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+BUILD_DIR="$PROJECT_DIR/.build/app"
+APP_NAME="Murmur"
+APP_BUNDLE="$BUILD_DIR/$APP_NAME.app"
+CONTENTS="$APP_BUNDLE/Contents"
+
+echo "==> Building release binary..."
+cd "$PROJECT_DIR"
+swift build -c release
+
+BINARY="$(swift build -c release --show-bin-path)/Murmur"
+
+echo "==> Creating app bundle..."
+rm -rf "$APP_BUNDLE"
+mkdir -p "$CONTENTS/MacOS"
+mkdir -p "$CONTENTS/Resources"
+
+# Copy binary
+cp "$BINARY" "$CONTENTS/MacOS/$APP_NAME"
+
+# Copy Info.plist
+cp "$PROJECT_DIR/Murmur/Info.plist" "$CONTENTS/Info.plist"
+
+# Add required keys to Info.plist
+/usr/libexec/PlistBuddy -c "Add :CFBundleExecutable string $APP_NAME" "$CONTENTS/Info.plist" 2>/dev/null || true
+/usr/libexec/PlistBuddy -c "Add :CFBundleIdentifier string com.murmur.app" "$CONTENTS/Info.plist" 2>/dev/null || true
+/usr/libexec/PlistBuddy -c "Add :CFBundleName string $APP_NAME" "$CONTENTS/Info.plist" 2>/dev/null || true
+/usr/libexec/PlistBuddy -c "Add :CFBundlePackageType string APPL" "$CONTENTS/Info.plist" 2>/dev/null || true
+/usr/libexec/PlistBuddy -c "Add :CFBundleShortVersionString string 1.0" "$CONTENTS/Info.plist" 2>/dev/null || true
+/usr/libexec/PlistBuddy -c "Add :CFBundleVersion string 1" "$CONTENTS/Info.plist" 2>/dev/null || true
+
+# Sign with entitlements
+codesign --force --sign - --entitlements "$PROJECT_DIR/Murmur/Murmur.entitlements" "$APP_BUNDLE"
+
+echo "==> Done! App bundle at: $APP_BUNDLE"
+echo "    Run: open \"$APP_BUNDLE\""

@@ -37,7 +37,9 @@ actor TranscriptionEngine {
     func transcribe(audioFrames: [Float]) async throws -> String {
         guard whisper != nil else { throw TranscriptionError.notLoaded }
         guard !audioFrames.isEmpty else { throw TranscriptionError.emptyAudio }
+        AppLogger.log("whisper.transcribe starting, frames=\(audioFrames.count), isLoaded=\(isLoaded)")
         let segments = try await whisper!.transcribe(audioFrames: audioFrames)
+        AppLogger.log("whisper.transcribe done, segments=\(segments.count)")
         return segments.map(\.text).joined().trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
