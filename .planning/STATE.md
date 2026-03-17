@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-02-PLAN.md
-last_updated: "2026-03-17T00:10:14.008Z"
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-17T00:24:48.295Z"
 last_activity: 2026-03-17 — Completed plan 03-01 (PostProcessingEngine actor)
 progress:
   total_phases: 4
   completed_phases: 3
-  total_plans: 12
-  completed_plans: 12
+  total_plans: 14
+  completed_plans: 13
   percent: 100
 ---
 
@@ -62,6 +62,7 @@ Progress: [██████████] 100%
 | Phase 02-audio-capture-and-transcription P04 | 5 | 2 tasks | 3 files |
 | Phase 03-llm-post-processing-and-text-insertion P00 | 15 | 2 tasks | 5 files |
 | Phase 03-llm-post-processing-and-text-insertion P02 | 5 | 2 tasks | 4 files |
+| Phase 04-pipeline-integration-and-polish P01 | 8 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -93,6 +94,8 @@ Recent decisions affecting current work:
 - [Phase 03-llm-post-processing-and-text-insertion]: ChatSession(model) used directly (not model.perform); ChatSession manages its own thread safety via SerialAccessContainer
 - [Phase 03-llm-post-processing-and-text-insertion]: snapshotPasteboard/restorePasteboard are internal (not private) for direct XCTest access without protocol indirection
 - [Phase 03-llm-post-processing-and-text-insertion]: TransientType marker documented as best-effort: not all clipboard managers honor it (known macOS ecosystem constraint)
+- [Phase 04-pipeline-integration-and-polish]: Separate lastError: String? on AppState (not case error(String)) avoids synthesized Equatable breakage on RecordingState
+- [Phase 04-pipeline-integration-and-polish]: DebugArchiver uses static lazy directory URL with createDirectory(withIntermediateDirectories: true) for safe first-run creation
 
 ### Pending Todos
 
@@ -106,6 +109,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-17T00:07:24.074Z
-Stopped at: Completed 03-02-PLAN.md
+Last session: 2026-03-17T00:24:48.292Z
+Stopped at: Completed 04-01-PLAN.md
 Resume file: None

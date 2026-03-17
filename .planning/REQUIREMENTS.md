@@ -18,7 +18,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **STT-01**: App transcribes audio using whisper.cpp with Apple hardware acceleration (CoreML/Accelerate)
 - [x] **STT-02**: App downloads whisper large-v3-turbo model on first launch with progress indicator
 - [x] **STT-03**: App applies VAD gating to prevent hallucinated output on silence/noise
-- [ ] **STT-04**: App displays transcription latency in menu bar or status area
+- [x] **STT-04**: App displays transcription latency in menu bar or status area
 
 ### LLM Post-Processing
 
@@ -28,10 +28,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Text Insertion
 
-- [ ] **INSERT-01**: App inserts text at cursor position via macOS Accessibility API (AXUIElement)
-- [ ] **INSERT-02**: App falls back to clipboard paste when AX insertion fails (Electron apps, terminals)
-- [ ] **INSERT-03**: App saves and restores clipboard contents around paste fallback
-- [ ] **INSERT-04**: Clipboard paste uses NSPasteboard TransientType marker
+- [x] **INSERT-01**: App inserts text at cursor position via macOS Accessibility API (AXUIElement)
+- [x] **INSERT-02**: App falls back to clipboard paste when AX insertion fails (Electron apps, terminals)
+- [x] **INSERT-03**: App saves and restores clipboard contents around paste fallback
+- [x] **INSERT-04**: Clipboard paste uses NSPasteboard TransientType marker
 
 ### Global Hotkeys
 
@@ -44,7 +44,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### UI / Menu Bar
 
 - [x] **UI-01**: App runs as menu bar app (LSUIElement) with no dock icon
-- [ ] **UI-02**: Menu bar icon shows status states (idle, recording, processing, error)
+- [x] **UI-02**: Menu bar icon shows status states (idle, recording, processing, error)
 - [x] **UI-03**: App displays SwiftUI settings window accessible from menu bar
 - [x] **UI-04**: Menu bar shows model loading progress on first launch
 
@@ -56,9 +56,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Debug & Polish
 
-- [ ] **DEBUG-01**: User can enable debug mode in settings
+- [x] **DEBUG-01**: User can enable debug mode in settings
 - [ ] **DEBUG-02**: Debug mode saves recordings as WAV files with JSON metadata
-- [ ] **DEBUG-03**: User can enable confirm-before-insert mode in settings
+- [x] **DEBUG-03**: User can enable confirm-before-insert mode in settings
 - [ ] **DEBUG-04**: Confirm mode shows transcribed text for review before insertion
 
 ## v2 Requirements
@@ -107,15 +107,15 @@ Deferred to future release. Tracked but not in current roadmap.
 | LLM-01 | Phase 3 | Complete |
 | LLM-02 | Phase 3 | Complete |
 | LLM-03 | Phase 3 | Complete |
-| INSERT-01 | Phase 3 | Pending |
-| INSERT-02 | Phase 3 | Pending |
-| INSERT-03 | Phase 3 | Pending |
-| INSERT-04 | Phase 3 | Pending |
-| UI-02 | Phase 4 | Pending |
-| STT-04 | Phase 4 | Pending |
-| DEBUG-01 | Phase 4 | Pending |
+| INSERT-01 | Phase 3 | Complete |
+| INSERT-02 | Phase 3 | Complete |
+| INSERT-03 | Phase 3 | Complete |
+| INSERT-04 | Phase 3 | Complete |
+| UI-02 | Phase 4 | Complete |
+| STT-04 | Phase 4 | Complete |
+| DEBUG-01 | Phase 4 | Complete |
 | DEBUG-02 | Phase 4 | Pending |
-| DEBUG-03 | Phase 4 | Pending |
+| DEBUG-03 | Phase 4 | Complete |
 | DEBUG-04 | Phase 4 | Pending |
 
 **Coverage:**
