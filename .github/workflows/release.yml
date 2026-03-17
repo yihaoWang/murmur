@@ -1,0 +1,29 @@
+name: Release DMG
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install create-dmg
+        run: brew install create-dmg
+
+      - name: Build app and DMG
+        run: bash scripts/build-app.sh
+
+      - name: Upload DMG to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: .build/Murmur.dmg
+          generate_release_notes: true
