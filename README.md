@@ -73,4 +73,4 @@ All speech recognition and text processing happens locally on device. No audio, 
 
 ## License
 
-TBD
+[MIT](LICENSE)
