@@ -1,6 +1,6 @@
 import XCTest
 import AVFoundation
-@testable import Typeness
+@testable import Murmur
 
 final class AudioCaptureTests: XCTestCase {
 

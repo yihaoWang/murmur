@@ -12,10 +12,10 @@ struct OnboardingView: View {
                 .font(.system(size: 48))
                 .foregroundStyle(.blue)
 
-            Text("Typeness Needs Accessibility Permission")
+            Text("Murmur Needs Accessibility Permission")
                 .font(.title2.bold())
 
-            Text("Typeness uses Accessibility permission to:\n• Register global hotkeys that work in any app\n• Insert transcribed text at your cursor position")
+            Text("Murmur uses Accessibility permission to:\n• Register global hotkeys that work in any app\n• Insert transcribed text at your cursor position")
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
 

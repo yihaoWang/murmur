@@ -1,5 +1,5 @@
 import XCTest
-@testable import Typeness
+@testable import Murmur
 
 final class LLMProcessorTests: XCTestCase {
 

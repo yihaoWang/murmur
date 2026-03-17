@@ -7,7 +7,7 @@ actor ModelManager {
     init(appState: AppState) {
         self.appState = appState
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-        self.modelsDirectory = appSupport.appendingPathComponent("Typeness/Models", isDirectory: true)
+        self.modelsDirectory = appSupport.appendingPathComponent("Murmur/Models", isDirectory: true)
     }
 
     func ensureModelsDirectory() throws {

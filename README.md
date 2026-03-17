@@ -1,4 +1,4 @@
-# Typeness
+# Murmur
 
 Native macOS voice-to-text input tool with Traditional Chinese focus, local speech recognition, and local LLM formatting. Press a hotkey, speak, and the formatted text is inserted at the cursor in any app.
 
@@ -35,7 +35,7 @@ The app can also be opened in Xcode. After building, grant Accessibility permiss
 
 | Component | Role |
 |-----------|------|
-| `TypenessApp` | App entry point, pipeline orchestration, MenuBarExtra |
+| `MurmurApp` | App entry point, pipeline orchestration, MenuBarExtra |
 | `HotkeyMonitor` | CGEventTap global hotkeys (toggle and push-to-talk) |
 | `AudioCaptureEngine` | AVAudioEngine input pipeline, converts to 16kHz mono Float32 |
 | `TranscriptionEngine` | SwiftWhisper actor with VAD gate, runs Whisper inference |

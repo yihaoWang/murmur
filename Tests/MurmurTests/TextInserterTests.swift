@@ -1,6 +1,6 @@
 import XCTest
 import AppKit
-@testable import Typeness
+@testable import Murmur
 
 final class TextInserterTests: XCTestCase {
 

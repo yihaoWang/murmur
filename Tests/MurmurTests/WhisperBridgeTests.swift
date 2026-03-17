@@ -1,5 +1,5 @@
 import XCTest
-@testable import Typeness
+@testable import Murmur
 
 final class WhisperBridgeTests: XCTestCase {
     func testTranscribeThrowsWhenNotLoaded() async throws {
@@ -17,6 +17,6 @@ final class WhisperBridgeTests: XCTestCase {
     func testTranscribeEmptyAudioThrows() async throws {
         // Requires a loaded model — skip in test environment where model file is not present.
         // The guard logic for emptyAudio is verified here as a unit test if model were available.
-        throw XCTSkip("Requires whisper model file at ~/Library/Application Support/Typeness/Models/ggml-large-v3-turbo.bin")
+        throw XCTSkip("Requires whisper model file at ~/Library/Application Support/Murmur/Models/ggml-large-v3-turbo.bin")
     }
 }

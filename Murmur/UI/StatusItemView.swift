@@ -7,7 +7,7 @@ struct StatusItemView: View {
 
     var body: some View {
         VStack(spacing: 12) {
-            Text("Typeness")
+            Text("Murmur")
                 .font(.headline)
 
             if let progress = appState.modelDownloadProgress {
@@ -66,7 +66,7 @@ struct StatusItemView: View {
                 }
             }
 
-            Button("Quit Typeness") {
+            Button("Quit Murmur") {
                 NSApplication.shared.terminate(nil)
             }
         }

@@ -2,7 +2,7 @@ import SwiftUI
 import KeyboardShortcuts
 
 @main
-struct TypenessApp: App {
+struct MurmurApp: App {
     @State private var appState = AppState()
     @StateObject private var settingsStore = SettingsStore()
     @State private var modelManager: ModelManager?
@@ -126,7 +126,7 @@ struct TypenessApp: App {
             try await audioEngine.start()
             appState.recordingState = .recording
         } catch {
-            print("[Typeness] Audio engine start failed: \(error)")
+            print("[Murmur] Audio engine start failed: \(error)")
             appState.recordingState = .idle
         }
     }
@@ -138,7 +138,7 @@ struct TypenessApp: App {
         appState.recordingState = .transcribing
 
         guard VADGate.hasVoiceActivity(samples: frames) else {
-            print("[Typeness] No voice activity detected, skipping transcription")
+            print("[Murmur] No voice activity detected, skipping transcription")
             appState.recordingState = .idle
             return
         }

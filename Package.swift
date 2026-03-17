@@ -2,12 +2,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "Typeness",
+    name: "Murmur",
     platforms: [
         .macOS(.v14)
     ],
     products: [
-        .executable(name: "Typeness", targets: ["Typeness"])
+        .executable(name: "Murmur", targets: ["Murmur"])
     ],
     dependencies: [
         .package(url: "https://github.com/sindresorhus/KeyboardShortcuts", .upToNextMinor(from: "1.15.0")),
@@ -16,16 +16,16 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "Typeness",
+            name: "Murmur",
             dependencies: [
                 .product(name: "KeyboardShortcuts", package: "KeyboardShortcuts"),
                 .product(name: "SwiftWhisper", package: "SwiftWhisper"),
                 .product(name: "MLXLLM", package: "mlx-swift-lm"),
                 .product(name: "MLXLMCommon", package: "mlx-swift-lm")
             ],
-            path: "Typeness",
+            path: "Murmur",
             sources: [
-                "App/TypenessApp.swift",
+                "App/MurmurApp.swift",
                 "App/SettingsStore.swift",
                 "Core/AppState.swift",
                 "Core/ModelManager.swift",
@@ -44,14 +44,14 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "TypenessTests",
+            name: "MurmurTests",
             dependencies: [
-                "Typeness",
+                "Murmur",
                 .product(name: "SwiftWhisper", package: "SwiftWhisper"),
                 .product(name: "MLXLLM", package: "mlx-swift-lm"),
                 .product(name: "MLXLMCommon", package: "mlx-swift-lm")
             ],
-            path: "Tests/TypenessTests"
+            path: "Tests/MurmurTests"
         )
     ]
 )

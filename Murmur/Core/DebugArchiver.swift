@@ -4,7 +4,7 @@ import Foundation
 struct DebugArchiver {
     static let directory: URL = {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        let dir = appSupport.appendingPathComponent("Typeness/DebugRecordings")
+        let dir = appSupport.appendingPathComponent("Murmur/DebugRecordings")
         try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         return dir
     }()
