@@ -16,10 +16,23 @@ import ApplicationServices
 
     enum HotkeyStatus { case unregistered, active, disabled }
     enum PermissionStatus { case unknown, granted, denied, revoked }
-    enum RecordingState { case idle, recording, transcribing }
+    enum RecordingState { case idle, recording, transcribing, processing }
 
     var recordingState: RecordingState = .idle
     var lastTranscription: String = ""
+    var lastTranscriptionLatencyMs: Double? = nil
+    var pendingTranscription: String? = nil
+    var lastError: String? = nil
+
+    var menuBarIconName: String {
+        if lastError != nil { return "exclamationmark.triangle" }
+        switch recordingState {
+        case .idle:         return "mic"
+        case .recording:    return "mic.fill"
+        case .transcribing: return "waveform"
+        case .processing:   return "ellipsis.circle"
+        }
+    }
 
     func checkAccessibilityOnStartup() {
         if AXIsProcessTrusted() {
