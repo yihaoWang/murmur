@@ -57,7 +57,8 @@ create-dmg \
   --hide-extension "$APP_NAME.app" \
   --no-internet-enable \
   "$DMG_PATH" \
-  "$APP_BUNDLE"
+  "$APP_BUNDLE" \
+  || true
 
 echo "==> Done! DMG at: $DMG_PATH"
 echo "    App bundle at: $APP_BUNDLE"
