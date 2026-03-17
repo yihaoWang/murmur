@@ -16,6 +16,12 @@ All processing is on-device — no data is sent to external services.
 - Auto-start at login via SMAppService
 - 100% local processing — no network requests, no telemetry
 
+## Install
+
+Download the latest DMG from [GitHub Releases](https://github.com/yihaoWang/murmur/releases), open it, and drag Murmur to Applications.
+
+On first launch, grant Accessibility permissions in System Settings > Privacy & Security > Accessibility, and allow microphone access when prompted.
+
 ## Requirements
 
 - macOS 14 (Sonoma) or later
@@ -29,7 +35,13 @@ Sandbox is disabled. The app requires Accessibility permissions (for cursor text
 swift build
 ```
 
-The app can also be opened in Xcode. After building, grant Accessibility permissions in System Settings > Privacy & Security > Accessibility, and allow microphone access when prompted.
+To build a standalone app bundle and DMG:
+
+```
+bash scripts/build-app.sh
+```
+
+The app can also be opened in Xcode.
 
 ## Architecture
 
